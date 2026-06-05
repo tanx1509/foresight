@@ -1,16 +1,16 @@
 [
   {
-    "decisionId": "dec-1780653829132",
-    "timestamp": "2026-06-05T10:03:49.132Z",
+    "decisionId": "dec-1780666512713",
+    "timestamp": "2026-06-05T13:35:12.713Z",
     "action": "Proceed",
     "simulationData": {
       "context": {
-        "decisionType": "SSO Migration (SAML to OIDC)",
-        "deadline": "July 15",
+        "decisionType": "Payment Gateway Deployment",
+        "deadline": "Next Week",
         "affectedTeams": [
-          "Identity",
-          "DevOps",
-          "All internal tooling users"
+          "Finance",
+          "Checkout Team",
+          "Platform"
         ],
         "owner": "System Extracted",
         "confidence": "Medium"
@@ -29,7 +29,21 @@
             "Authentication",
             "Migration"
           ],
-          "relevanceScore": 21.27
+          "relevanceScore": 13.64
+        },
+        {
+          "id": "doc-002",
+          "title": "Incident Report: Certificate Expiration Cascading Failure",
+          "type": "incident_report",
+          "date": "2023-11-02",
+          "author": "Marcus Webb",
+          "content": "A forgotten SSL certificate on the internal auth routing layer expired, causing a complete lockout of internal tooling. We assumed the auto-renewal script was covering all layers, but the load balancer terminating TLS was manually configured.",
+          "tags": [
+            "Certificate",
+            "Authentication",
+            "Downtime"
+          ],
+          "relevanceScore": 7.61
         },
         {
           "id": "doc-004",
@@ -44,7 +58,7 @@
             "Claims",
             "SSO"
           ],
-          "relevanceScore": 11.33
+          "relevanceScore": 7.02
         },
         {
           "id": "doc-005",
@@ -61,223 +75,6 @@
           "relevanceScore": 6
         },
         {
-          "id": "doc-002",
-          "title": "Incident Report: Certificate Expiration Cascading Failure",
-          "type": "incident_report",
-          "date": "2023-11-02",
-          "author": "Marcus Webb",
-          "content": "A forgotten SSL certificate on the internal auth routing layer expired, causing a complete lockout of internal tooling. We assumed the auto-renewal script was covering all layers, but the load balancer terminating TLS was manually configured.",
-          "tags": [
-            "Certificate",
-            "Authentication",
-            "Downtime"
-          ],
-          "relevanceScore": 4
-        },
-        {
-          "id": "doc-noise-1",
-          "title": "Project A Update Q1",
-          "type": "retrospective",
-          "date": "2023-01-10",
-          "author": "Alex Smith",
-          "content": "Standard review notes for Project A. The team hit most OKRs, though we experienced some minor delays due to resource allocation in sprint 4. The marketing launch was successful.",
-          "tags": [
-            "Marketing",
-            "OKRs",
-            "Review",
-            "Project-A"
-          ],
-          "relevanceScore": 3.1
-        }
-      ],
-      "constraints": [
-        {
-          "category": "capacity",
-          "description": "Sprint velocity for the Identity Team is currently reduced by 30% due to summer PTO.",
-          "severity": "High"
-        },
-        {
-          "category": "workload",
-          "description": "The DevOps team is concurrently handling the Kubernetes cluster upgrade this week.",
-          "severity": "Medium"
-        },
-        {
-          "category": "metrics",
-          "description": "PR review times in the auth-gateway repository are averaging 3.2 days (up from 1.1 days).",
-          "severity": "Medium"
-        }
-      ],
-      "assumptions": [
-        {
-          "assumption": "Legacy microservices will not be broken by the authentication shift.",
-          "challenge": "Legacy dependencies are rarely fully audited before core infrastructure changes.",
-          "evidenceId": "doc-001"
-        },
-        {
-          "assumption": "Internal identity providers have 100% uptime during transition.",
-          "challenge": "Identity provider migrations historically suffer partial outages.",
-          "evidenceId": "doc-001"
-        },
-        {
-          "assumption": "SSL certificates are completely updated across the routing layer.",
-          "challenge": "Load balancer TLS termination is often missed in automated renewal scripts.",
-          "evidenceId": "doc-002"
-        }
-      ],
-      "scenarios": [
-        {
-          "id": "sso-1",
-          "title": "Legacy Microservice Lockout",
-          "causalChain": [
-            "Proceed with SSO migration",
-            "Legacy v1 auth endpoints are bypassed",
-            "15% of internal microservices fail to authenticate",
-            "Cascading failure across internal tooling"
-          ],
-          "supportingEvidenceIds": [
-            "doc-001"
-          ],
-          "impact": "Complete halt of internal operations for dependent teams.",
-          "severity": "Critical",
-          "mitigationRecommendations": [
-            "Audit and update all v1 usages before deployment."
-          ]
-        },
-        {
-          "id": "sso-2",
-          "title": "Identity Provider Outage",
-          "causalChain": [
-            "SAML to OIDC handoff initiates",
-            "Unexpected token parsing error crashes identity routing",
-            "Company-wide logout"
-          ],
-          "supportingEvidenceIds": [
-            "doc-001"
-          ],
-          "impact": "All employees unable to access internal systems.",
-          "severity": "Critical",
-          "mitigationRecommendations": [
-            "Implement a fallback 'break-glass' admin token."
-          ]
-        },
-        {
-          "id": "sso-3",
-          "title": "Certificate Rotation Failure",
-          "causalChain": [
-            "New endpoints require updated TLS certificates",
-            "Load balancer is misconfigured",
-            "Secure connections rejected"
-          ],
-          "supportingEvidenceIds": [
-            "doc-002"
-          ],
-          "impact": "Downtime during switch-over.",
-          "severity": "Medium",
-          "mitigationRecommendations": [
-            "Perform a dry-run certificate rotation in staging."
-          ]
-        },
-        {
-          "id": "scenario-1780653807095-ops",
-          "title": "Rollback Failure due to Resource Constraints",
-          "causalChain": [
-            "Migration encounters critical issue",
-            "Team attempts rollback",
-            "Reduced capacity and concurrent DevOps workloads prevent rapid resolution"
-          ],
-          "supportingEvidenceIds": [],
-          "impact": "Extended downtime beyond expected maintenance windows.",
-          "severity": "Medium",
-          "mitigationRecommendations": [
-            "Freeze DevOps deployments during this timeframe.",
-            "Ensure secondary on-call rotation is staffed."
-          ]
-        }
-      ],
-      "agentTraces": {
-        "SIGNAL": [
-          "Analyzing input: \"Should we launch the July 15 SSO migration?\"",
-          "Matched keywords: 'sso', 'migration' -> Extracted decisionType: 'SSO Migration'",
-          "Matched date: 'July 15' -> Extracted deadline: 'July 15'"
-        ],
-        "HISTORIAN": [
-          "Initializing local TF-IDF retrieval engine.",
-          "Tokenized search query: [should, launch, the, july, sso, migration]",
-          "Scored 40 documents. Returning top 5.",
-          "Rank 1: Postmortem: August 2024 Identity Provider Outage (Score: 21.27)",
-          "Rank 2: Launch Review: CRM Platform Integration (Score: 11.33)",
-          "Rank 3: Executive Note: Tech Debt in Legacy Auth (Score: 6)",
-          "Rank 4: Incident Report: Certificate Expiration Cascading Failure (Score: 4)",
-          "Rank 5: Project A Update Q1 (Score: 3.1)"
-        ],
-        "AUDITOR": [
-          "Connecting to mock metrics telemetry.",
-          "Analyzing sprint capacity... Detected 30% reduction (Summer PTO).",
-          "Analyzing DevOps workloads... Detected Kubernetes upgrade overlap.",
-          "Checking DORA metrics... PR review times elevated."
-        ],
-        "CHALLENGER": [
-          "Routing assumption generation based on context: SSO Migration (SAML to OIDC)",
-          "Generated 3 domain-specific assumptions."
-        ],
-        "SYNTHESIZER": [
-          "Synthesizing scenarios routed by context: SSO Migration (SAML to OIDC)",
-          "Generating SSO specific scenario: Legacy Microservice Lockout",
-          "Generating SSO specific scenario: Identity Provider Outage",
-          "Generating SSO specific scenario: Certificate Rotation Failure",
-          "Synthesizing Operational Constraint Scenario."
-        ]
-      }
-    }
-  },
-  {
-    "decisionId": "dec-1780653860331",
-    "timestamp": "2026-06-05T10:04:20.331Z",
-    "action": "Proceed",
-    "simulationData": {
-      "context": {
-        "decisionType": "CRM Migration to Salesforce",
-        "deadline": "TBD",
-        "affectedTeams": [
-          "Sales",
-          "Marketing",
-          "Data Engineering"
-        ],
-        "owner": "System Extracted",
-        "confidence": "Medium"
-      },
-      "retrievedDocuments": [
-        {
-          "id": "doc-004",
-          "title": "Launch Review: CRM Platform Integration",
-          "type": "launch_review",
-          "date": "2025-01-20",
-          "author": "Elena Rostova",
-          "content": "The CRM integration was delayed by 3 weeks because the vendor's SSO endpoints did not support our specific OIDC claim structure. We had to write a custom claims mapper middleware at the last minute.",
-          "tags": [
-            "OIDC",
-            "Vendor",
-            "Claims",
-            "SSO"
-          ],
-          "relevanceScore": 9.07
-        },
-        {
-          "id": "doc-001",
-          "title": "Postmortem: August 2024 Identity Provider Outage",
-          "type": "postmortem",
-          "date": "2024-08-15",
-          "author": "Sarah Chen",
-          "content": "During the August migration to the new SAML provider, we experienced a 4-hour outage. The root cause was a failure to migrate legacy API tokens that bypassed the main SSO gateway. All downstream services relying on these tokens failed cascadingly.",
-          "tags": [
-            "SSO",
-            "Outage",
-            "Authentication",
-            "Migration"
-          ],
-          "relevanceScore": 5.05
-        },
-        {
           "id": "doc-003",
           "title": "Retrospective: Q1 Security Enhancements",
           "type": "retrospective",
@@ -289,36 +86,7 @@
             "Active Directory",
             "Sync"
           ],
-          "relevanceScore": 2.05
-        },
-        {
-          "id": "doc-005",
-          "title": "Executive Note: Tech Debt in Legacy Auth",
-          "type": "executive_note",
-          "date": "2024-05-30",
-          "author": "VP of Engineering",
-          "content": "We must prioritize removing the v1 authentication endpoints by end of year. Currently, 15% of our internal microservices still hardcode the v1 auth URLs. Any global identity shift must account for these legacy services before deprecating the endpoints.",
-          "tags": [
-            "Tech Debt",
-            "Authentication",
-            "Legacy"
-          ],
-          "relevanceScore": 1.02
-        },
-        {
-          "id": "doc-noise-1",
-          "title": "Project A Update Q1",
-          "type": "retrospective",
-          "date": "2023-01-10",
-          "author": "Alex Smith",
-          "content": "Standard review notes for Project A. The team hit most OKRs, though we experienced some minor delays due to resource allocation in sprint 4. The marketing launch was successful.",
-          "tags": [
-            "Marketing",
-            "OKRs",
-            "Review",
-            "Project-A"
-          ],
-          "relevanceScore": 1.02
+          "relevanceScore": 2
         }
       ],
       "constraints": [
@@ -340,75 +108,67 @@
       ],
       "assumptions": [
         {
-          "assumption": "Salesforce API limits will comfortably handle the initial data burst.",
-          "challenge": "Historical migrations show burst data mapping severely violates rate limits.",
-          "evidenceId": "doc-004"
+          "assumption": "The checkout process will not timeout during peak hours.",
+          "challenge": "Database locking causes latency cascades on new checkout systems."
         },
         {
-          "assumption": "Data mapping schemas match exactly 1-to-1.",
-          "challenge": "OIDC/SAML structures or data schemas rarely align 1-to-1 without middleware.",
-          "evidenceId": "doc-004"
+          "assumption": "Idempotency keys will prevent all transaction duplications.",
+          "challenge": "Client-side retries often bypass standard idempotency safeguards under load."
         },
         {
-          "assumption": "Customer data integrity will remain perfectly intact during transfer.",
-          "challenge": "Data corruption is common during large-scale bulk migrations.",
-          "evidenceId": "doc-noise-1"
+          "assumption": "Availability of the third-party gateway is 99.99%.",
+          "challenge": "Third-party gateways often have unannounced maintenance windows."
         }
       ],
       "scenarios": [
         {
-          "id": "crm-1",
-          "title": "Vendor API Data Mapping Failure",
+          "id": "pay-1",
+          "title": "Payment Timeout Cascade",
           "causalChain": [
-            "Initiate CRM data transfer",
-            "Custom field schema mismatch causes ingestion errors",
-            "Salesforce rejects 30% of critical customer records"
+            "Deploy new payment gateway",
+            "Peak hour load causes database locking",
+            "Gateway latency spikes beyond 200ms",
+            "Client retries exacerbate the load causing total crash"
           ],
-          "supportingEvidenceIds": [
-            "doc-004"
-          ],
-          "impact": "Loss of lead tracking and revenue data.",
+          "supportingEvidenceIds": [],
+          "impact": "Total system unavailability preventing all revenue generation.",
           "severity": "Critical",
           "mitigationRecommendations": [
-            "Pre-build a custom claims/data mapper middleware."
+            "Scale database read replicas proactively."
           ]
         },
         {
-          "id": "crm-2",
-          "title": "Salesforce Rate Limiting",
+          "id": "pay-2",
+          "title": "Transaction Duplication",
           "causalChain": [
-            "Bulk transfer hits API",
-            "Salesforce API limits exceeded in first hour",
-            "Migration script crashes and leaves data in partial state"
+            "Timeout occurs but transaction was authorized",
+            "Idempotency keys fail across distributed nodes",
+            "Users charged twice"
           ],
-          "supportingEvidenceIds": [
-            "doc-004"
-          ],
-          "impact": "Data synchronization locked for 24 hours.",
-          "severity": "High",
+          "supportingEvidenceIds": [],
+          "impact": "Severe brand damage and chargeback fees.",
+          "severity": "Critical",
           "mitigationRecommendations": [
-            "Implement chunking and strict retry backoff logic."
+            "Audit idempotency key logic across all microservices."
           ]
         },
         {
-          "id": "crm-3",
-          "title": "Customer Data Corruption",
+          "id": "pay-3",
+          "title": "Checkout Availability Failure",
           "causalChain": [
-            "Concurrent updates occur during migration",
-            "Race condition corrupts recent contact logs",
-            "Sales reps lose context on active deals"
+            "Third-party vendor experiences maintenance",
+            "Gateway integration fails to fallback gracefully",
+            "Checkout page crashes"
           ],
-          "supportingEvidenceIds": [
-            "doc-noise-1"
-          ],
-          "impact": "Customer trust degradation and lost sales.",
+          "supportingEvidenceIds": [],
+          "impact": "Intermittent failures during the weekend.",
           "severity": "Medium",
           "mitigationRecommendations": [
-            "Enforce a hard read-only freeze on old CRM during sync."
+            "Implement a circuit breaker with an alternative payment method."
           ]
         },
         {
-          "id": "scenario-1780653840002-ops",
+          "id": "scenario-1780653871052-ops",
           "title": "Rollback Failure due to Resource Constraints",
           "causalChain": [
             "Migration encounters critical issue",
@@ -426,18 +186,19 @@
       ],
       "agentTraces": {
         "SIGNAL": [
-          "Analyzing input: \"Should we migrate our CRM to Salesforce?\"",
-          "Matched keywords: 'crm', 'salesforce' -> Extracted decisionType: 'CRM Migration'"
+          "Analyzing input: \"Can we deploy the new payment gateway next week?\"",
+          "Matched keywords: 'payment', 'gateway' -> Extracted decisionType: 'Payment Gateway'",
+          "Matched phrase: 'next week' -> Extracted deadline: 'Next Week'"
         ],
         "HISTORIAN": [
           "Initializing local TF-IDF retrieval engine.",
-          "Tokenized search query: [should, migrate, our, crm, salesforce]",
+          "Tokenized search query: [can, deploy, the, new, payment, gateway, next, week]",
           "Scored 40 documents. Returning top 5.",
-          "Rank 1: Launch Review: CRM Platform Integration (Score: 9.07)",
-          "Rank 2: Postmortem: August 2024 Identity Provider Outage (Score: 5.05)",
-          "Rank 3: Retrospective: Q1 Security Enhancements (Score: 2.05)",
-          "Rank 4: Executive Note: Tech Debt in Legacy Auth (Score: 1.02)",
-          "Rank 5: Project A Update Q1 (Score: 1.02)"
+          "Rank 1: Postmortem: August 2024 Identity Provider Outage (Score: 13.64)",
+          "Rank 2: Incident Report: Certificate Expiration Cascading Failure (Score: 7.61)",
+          "Rank 3: Launch Review: CRM Platform Integration (Score: 7.02)",
+          "Rank 4: Executive Note: Tech Debt in Legacy Auth (Score: 6)",
+          "Rank 5: Retrospective: Q1 Security Enhancements (Score: 2)"
         ],
         "AUDITOR": [
           "Connecting to mock metrics telemetry.",
@@ -446,14 +207,14 @@
           "Checking DORA metrics... PR review times elevated."
         ],
         "CHALLENGER": [
-          "Routing assumption generation based on context: CRM Migration to Salesforce",
+          "Routing assumption generation based on context: Payment Gateway Deployment",
           "Generated 3 domain-specific assumptions."
         ],
         "SYNTHESIZER": [
-          "Synthesizing scenarios routed by context: CRM Migration to Salesforce",
-          "Generating CRM specific scenario: Vendor API Data Mapping Failure",
-          "Generating CRM specific scenario: Salesforce Rate Limiting",
-          "Generating CRM specific scenario: Customer Data Corruption",
+          "Synthesizing scenarios routed by context: Payment Gateway Deployment",
+          "Generating Payment specific scenario: Payment Timeout Cascade",
+          "Generating Payment specific scenario: Transaction Duplication",
+          "Generating Payment specific scenario: Checkout Availability Failure",
           "Synthesizing Operational Constraint Scenario."
         ]
       }
