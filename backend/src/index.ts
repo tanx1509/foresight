@@ -11,9 +11,54 @@ import { DecisionRecord, FailureSimulation } from "@foresight/shared";
 import fs from "fs";
 import path from "path";
 
+// Bootstrap local storage directories
+const BOOTSTRAP_DIRS = [
+  "data/corpus",
+  "data/processed",
+  "data/chunks",
+  "data/embeddings",
+  "data/index"
+];
+BOOTSTRAP_DIRS.forEach(dir => {
+  const fullPath = path.resolve(__dirname, '../../', dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+    console.log(`[BOOTSTRAP] Created directory: ${dir}`);
+  }
+});
+
+import { ingestCorpus } from "./ingestion/corpusIngestion";
+import { getSearchProvider } from "./services/providerFactory";
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.post("/api/reindex", async (req, res) => {
+  try {
+    const result = await ingestCorpus();
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/debug/search", async (req, res) => {
+  try {
+    const q = req.query.q as string;
+    if (!q) return res.status(400).json({ error: "Missing query 'q'" });
+    const searchProvider = getSearchProvider();
+    const results = await searchProvider.search(q, 5);
+    res.json({
+      query: q,
+      results: results.map((r: any) => r.title),
+      scores: results.map((r: any) => r.score),
+      retrievalMethod: "Hybrid (Cosine + TFIDF)"
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 const PORT = 3001;
 

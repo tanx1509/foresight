@@ -1,4 +1,5 @@
-import { chunkDocument, Chunk } from "./chunking";
+import { chunkDocument } from "./chunking";
+import { Chunk, DocumentMetadata } from "@foresight/shared";
 
 export interface IngestedDocument {
   documentId: string;
@@ -11,7 +12,8 @@ export async function ingestDocument(rawText: string): Promise<IngestedDocument>
   console.log("Extracting raw text...");
   console.log("Running chunking engine...");
   
-  const chunks = chunkDocument(rawText);
+  const dummyMeta: DocumentMetadata = { id: "legacy", title: "legacy", sourcePath: "legacy" };
+  const chunks = chunkDocument(rawText, dummyMeta);
   
   console.log(`Produced ${chunks.length} chunks.`);
 

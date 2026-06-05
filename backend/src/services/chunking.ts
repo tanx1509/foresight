@@ -1,38 +1,57 @@
-export interface Chunk {
-  chunkId: string;
-  content: string;
-  position: number;
-}
+import { Chunk, DocumentMetadata } from "@foresight/shared";
 
-export function chunkDocument(rawText: string, minLength: number = 300, maxLength: number = 500): Chunk[] {
-  // Simple regex to split by sentences (period, exclamation, or question mark followed by space or newline)
-  // Warning: This is a basic heuristic for a hackathon without external NLP libraries.
-  const sentences = rawText.match(/[^.!?]+[.!?]+(?:\s+|$)/g) || [rawText];
-  
+export function chunkDocument(
+  rawText: string, 
+  metadata: DocumentMetadata,
+  minLength: number = 300, 
+  maxLength: number = 500
+): Chunk[] {
+  const lines = rawText.split('\n');
   const chunks: Chunk[] = [];
   let currentChunkText = "";
   let currentPosition = 0;
+  let currentHeading = metadata.title || "General";
 
-  for (const sentence of sentences) {
-    if (currentChunkText.length + sentence.length > maxLength && currentChunkText.length >= minLength) {
-      chunks.push({
-        chunkId: `chunk-${Date.now()}-${currentPosition}`,
-        content: currentChunkText.trim(),
-        position: currentPosition
-      });
-      currentPosition++;
-      currentChunkText = sentence;
-    } else {
-      currentChunkText += sentence;
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    // Heading heuristic: Short line, no trailing punctuation
+    if (trimmed.length < 80 && !/[.!?]$/.test(trimmed)) {
+      currentHeading = trimmed;
+      continue;
+    }
+
+    const sentences = trimmed.match(/[^.!?]+[.!?]+(?:\s+|$)/g) || [trimmed];
+    
+    for (const sentence of sentences) {
+      if (currentChunkText.length + sentence.length > maxLength && currentChunkText.length >= minLength) {
+        chunks.push({
+          id: `chunk-${metadata.id}-${currentPosition}`,
+          documentId: metadata.id,
+          text: `[${currentHeading}] ${currentChunkText.trim()}`,
+          position: currentPosition,
+          title: metadata.title,
+          sourcePath: metadata.sourcePath,
+          heading: currentHeading
+        });
+        currentPosition++;
+        currentChunkText = sentence.trim();
+      } else {
+        currentChunkText += (currentChunkText ? ' ' : '') + sentence.trim();
+      }
     }
   }
 
-  // Push the remainder
   if (currentChunkText.trim().length > 0) {
     chunks.push({
-      chunkId: `chunk-${Date.now()}-${currentPosition}`,
-      content: currentChunkText.trim(),
-      position: currentPosition
+      id: `chunk-${metadata.id}-${currentPosition}`,
+      documentId: metadata.id,
+      text: `[${currentHeading}] ${currentChunkText.trim()}`,
+      position: currentPosition,
+      title: metadata.title,
+      sourcePath: metadata.sourcePath,
+      heading: currentHeading
     });
   }
 

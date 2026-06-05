@@ -12,5 +12,10 @@
     "dev": "npm run dev --workspaces",
     "build": "npm run build --workspaces",
     "start": "npm run start --workspaces"
+  },
+  "devDependencies": {
+    "@types/pdfkit": "^0.17.6",
+    "docx": "^9.7.1",
+    "pdfkit": "^0.18.0"
   }
 }

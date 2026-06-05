@@ -9,6 +9,32 @@ export interface Document {
   relevanceScore?: number;
 }
 
+export interface DocumentMetadata {
+  id: string;
+  title: string;
+  sourcePath: string;
+  documentType?: string;
+  createdAt?: string;
+  ingestedAt?: string;
+  wordCount?: number;
+}
+
+export interface Chunk {
+  id: string;
+  documentId: string;
+  text: string;
+  position: number;
+  title?: string;
+  sourcePath?: string;
+  heading?: string;
+}
+
+export interface IndexedChunk {
+  chunk: Chunk;
+  embedding: number[];
+}
+
+
 export interface DecisionContext {
   decisionType: string;
   deadline: string;
