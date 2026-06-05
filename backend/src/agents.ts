@@ -4,10 +4,12 @@ import {
   Document,
   CriticalAssumption,
   AgentResponse,
-  FailureScenario
+  FailureScenario,
+  OperationalConstraint
 } from "@foresight/shared";
-import { allDocuments, mockOperationalConstraints } from "@foresight/mock-data";
+import { allDocuments } from "@foresight/mock-data";
 import { getSearchProvider } from "./services/providerFactory";
+import { getOperationalProvider } from "./services/operationalProviderFactory";
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
@@ -81,15 +83,63 @@ export const runHistorianAgent = async (context: DecisionContext, prompt: string
   return { data: top5, reasoningTrace: trace };
 };
 
-export const runAuditorAgent = async (): Promise<AgentResponse<typeof mockOperationalConstraints>> => {
+export const runAuditorAgent = async (): Promise<AgentResponse<OperationalConstraint[]>> => {
   await delay(1000);
-  const trace = [
-    "Connecting to mock metrics telemetry.",
-    "Analyzing sprint capacity... Detected 30% reduction (Summer PTO).",
-    "Analyzing DevOps workloads... Detected Kubernetes upgrade overlap.",
-    "Checking DORA metrics... PR review times elevated."
-  ];
-  return { data: mockOperationalConstraints, reasoningTrace: trace };
+  const trace: string[] = [];
+  const constraints: OperationalConstraint[] = [];
+  const provider = getOperationalProvider();
+
+  trace.push("Loading sprint metrics...");
+  const sprint = await provider.getSprintMetrics();
+  
+  trace.push("Loading PR metrics...");
+  const pr = await provider.getPRMetrics();
+  
+  trace.push("Loading deployment metrics...");
+  const deployments = await provider.getDeploymentMetrics();
+
+  trace.push("Evaluating capacity thresholds...");
+  let capacitySeverity: "Low" | "Medium" | "High" = "Low";
+  if (sprint.capacityPercentage > 85) capacitySeverity = "High";
+  else if (sprint.capacityPercentage >= 60) capacitySeverity = "Medium";
+  else capacitySeverity = "Low";
+  
+  constraints.push({
+    category: "capacity",
+    severity: capacitySeverity,
+    description: `Sprint capacity is at ${sprint.capacityPercentage}%. Available hours: ${sprint.availableHours}.`
+  });
+
+  trace.push("Evaluating review-time trends...");
+  let prSeverity: "Low" | "Medium" | "High" = "Low";
+  if (pr.percentageChange > 50) prSeverity = "High";
+  else if (pr.percentageChange >= 20) prSeverity = "Medium";
+
+  if (prSeverity !== "Low") {
+    constraints.push({
+      category: "metrics",
+      severity: prSeverity,
+      description: `PR review times increased by ${pr.percentageChange}%. Recent avg: ${pr.recentReviewTimeHours}h.`
+    });
+  }
+
+  trace.push("Evaluating deployment stability...");
+  if (deployments.rollbackEvents > 1) {
+    constraints.push({
+      category: "delays",
+      severity: "High",
+      description: `Detected ${deployments.rollbackEvents} rollback events recently.`
+    });
+  } else if (deployments.failedDeployments > 0) {
+    constraints.push({
+      category: "delays",
+      severity: "Medium",
+      description: `Detected ${deployments.failedDeployments} failed deployments.`
+    });
+  }
+
+  trace.push(`Generated ${constraints.length} operational constraints.`);
+  return { data: constraints, reasoningTrace: trace };
 };
 
 export const runChallengerAgent = async (context: DecisionContext, docs: Document[]): Promise<AgentResponse<CriticalAssumption[]>> => {
@@ -159,7 +209,7 @@ export const runChallengerAgent = async (context: DecisionContext, docs: Documen
 export const runSynthesizerAgent = async (
   context: DecisionContext, 
   docs: Document[], 
-  constraints: typeof mockOperationalConstraints, 
+  constraints: OperationalConstraint[],  
   assumptions: CriticalAssumption[]
 ): Promise<AgentResponse<FailureScenario[]>> => {
   await delay(2000);

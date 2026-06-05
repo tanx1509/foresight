@@ -17,7 +17,8 @@ const BOOTSTRAP_DIRS = [
   "data/processed",
   "data/chunks",
   "data/embeddings",
-  "data/index"
+  "data/index",
+  "data/operational"
 ];
 BOOTSTRAP_DIRS.forEach(dir => {
   const fullPath = path.resolve(__dirname, '../../', dir);
