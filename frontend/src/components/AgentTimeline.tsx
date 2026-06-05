@@ -34,9 +34,9 @@ export default function AgentTimeline({ onComplete }: Props) {
   }, []);
 
   return (
-    <div className="bg-white rounded-lg teams-shadow border border-gray-200 p-8 w-full max-w-2xl mx-auto my-12">
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-8 w-full max-w-2xl mx-auto my-12">
       <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center justify-center gap-2">
-        <Cpu className="w-6 h-6 text-teams-brand animate-pulse" />
+        <Cpu className="w-6 h-6 text-blue-600 animate-pulse" />
         FORESIGHT Engine Executing
       </h3>
       
@@ -57,7 +57,7 @@ export default function AgentTimeline({ onComplete }: Props) {
               </div>
               <div>
                 {isDone && <span className="text-green-500 text-sm font-medium">✓ Done</span>}
-                {isActive && <span className="text-teams-brand text-sm font-medium animate-pulse">Running...</span>}
+                {isActive && <span className="text-blue-600 text-sm font-medium animate-pulse">Running...</span>}
               </div>
             </div>
           );
