@@ -6,6 +6,7 @@ export interface Document {
   author: string;
   content: string;
   tags: string[];
+  relevanceScore?: number;
 }
 
 export interface DecisionContext {
@@ -38,12 +39,24 @@ export interface FailureScenario {
   mitigationRecommendations: string[];
 }
 
+export interface AgentResponse<T> {
+  data: T;
+  reasoningTrace: string[];
+}
+
 export interface FailureSimulation {
   context: DecisionContext;
   scenarios: FailureScenario[];
   constraints: OperationalConstraint[];
   assumptions: CriticalAssumption[];
   retrievedDocuments: Document[];
+  agentTraces: {
+    SIGNAL: string[];
+    HISTORIAN: string[];
+    AUDITOR: string[];
+    CHALLENGER: string[];
+    SYNTHESIZER: string[];
+  };
 }
 
 export interface DecisionRecord {

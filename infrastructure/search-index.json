@@ -1,0 +1,17 @@
+{
+  "name": "foresight-index",
+  "fields": [
+    { "name": "id", "type": "Edm.String", "key": true, "searchable": false },
+    { "name": "content", "type": "Edm.String", "searchable": true, "filterable": false, "sortable": false, "facetable": false },
+    { "name": "title", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true, "facetable": false },
+    { "name": "contentVector", "type": "Collection(Edm.Single)", "searchable": true, "dimensions": 1536, "vectorSearchProfile": "my-vector-profile" }
+  ],
+  "vectorSearch": {
+    "algorithms": [
+      { "name": "hnsw-algo", "kind": "hnsw" }
+    ],
+    "profiles": [
+      { "name": "my-vector-profile", "algorithm": "hnsw-algo" }
+    ]
+  }
+}
