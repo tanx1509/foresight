@@ -32,6 +32,7 @@ export async function handleTeamsMessage(payload: TeamsMessage): Promise<TeamsIn
     return {
       status: "success",
       response: {
+        decisionId,
         simulation: result,
         activityFeed: buildActivityFeedCard(getActivity(decisionId)!)
       }

@@ -3,6 +3,8 @@ import { saveDecisionRecords, loadDecisionRecords } from "./services/decisionSto
 import { runSimulationWorkflow } from "./services/simulator";
 import { handleTeamsMessage } from "./teams/bot";
 import { getActivity, initializeActivity } from "./teams/activityStore";
+import { getSimulation } from "./teams/simulationStore";
+import { buildFailureMapCard } from "./teams/cards/failureMap";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -119,6 +121,17 @@ app.get("/api/teams/activity", (req, res) => {
     return res.status(404).json({ error: "No activity found" });
   }
   res.json(feed);
+});
+
+app.get("/api/teams/failure-map/:decisionId", (req, res) => {
+  const simulation = getSimulation(req.params.decisionId);
+  if (!simulation) {
+    return res.status(404).json({ error: "Simulation not found" });
+  }
+  res.json({
+    decisionId: req.params.decisionId,
+    card: buildFailureMapCard(simulation)
+  });
 });
 
 app.post("/api/decisions", (req, res) => {

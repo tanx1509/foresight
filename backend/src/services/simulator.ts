@@ -9,6 +9,7 @@ import {
 } from "../agents";
 import { FailureSimulation } from "@foresight/shared";
 import { startAgent, completeAgent } from "../teams/activityStore";
+import { saveSimulation } from "../teams/simulationStore";
 
 export async function runSimulationWorkflow(prompt: string, decisionId: string) {
   startAgent(decisionId, "SIGNAL");
@@ -94,9 +95,13 @@ export async function runSimulationWorkflow(prompt: string, decisionId: string) 
 
   saveDecisionRecords(decisionRecords);
 
-  return {
+  const finalResult = {
     ...simulation,
     decisionRecords,
     azureWorkItems: createdWorkItems
   };
+
+  saveSimulation(decisionId, finalResult);
+
+  return finalResult;
 }
