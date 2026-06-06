@@ -1,4 +1,5 @@
 import { createWorkItem } from "./services/azureDevops";
+import { saveDecisionRecords, loadDecisionRecords } from "./services/decisionStore";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -134,6 +135,8 @@ app.post("/api/simulate", async (req, res) => {
       timestamp: new Date().toISOString()
     }));
 
+    saveDecisionRecords(decisionRecords);
+
     res.json({
       ...simulation,
       decisionRecords,
@@ -156,6 +159,10 @@ app.post("/api/decisions", (req, res) => {
   decisionRecordsStore.push(record);
   saveRecords();
   res.json({ success: true, record });
+});
+
+app.get("/api/decision-history", (req, res) => {
+  res.json(loadDecisionRecords());
 });
 
 app.listen(PORT, () => {
