@@ -8,13 +8,28 @@ import {
   runSynthesizerAgent 
 } from "../agents";
 import { FailureSimulation } from "@foresight/shared";
+import { startAgent, completeAgent } from "../teams/activityStore";
 
-export async function runSimulationWorkflow(prompt: string) {
+export async function runSimulationWorkflow(prompt: string, decisionId: string) {
+  startAgent(decisionId, "SIGNAL");
   const signal = await runSignalAgent(prompt);
+  completeAgent(decisionId, "SIGNAL");
+
+  startAgent(decisionId, "HISTORIAN");
   const historian = await runHistorianAgent(signal.data, prompt);
+  completeAgent(decisionId, "HISTORIAN");
+
+  startAgent(decisionId, "AUDITOR");
   const auditor = await runAuditorAgent();
+  completeAgent(decisionId, "AUDITOR");
+
+  startAgent(decisionId, "CHALLENGER");
   const challenger = await runChallengerAgent(signal.data, historian.data);
+  completeAgent(decisionId, "CHALLENGER");
+
+  startAgent(decisionId, "SYNTHESIZER");
   const synthesizer = await runSynthesizerAgent(signal.data, historian.data, auditor.data, challenger.data);
+  completeAgent(decisionId, "SYNTHESIZER");
 
   const simulation: FailureSimulation = {
     context: signal.data,

@@ -1,5 +1,7 @@
 import { runSimulationWorkflow } from "../services/simulator";
 import { TeamsMessage, TeamsInvocationResult } from "./types";
+import { initializeActivity, getActivity } from "./activityStore";
+import { buildActivityFeedCard } from "./cards/activityFeed";
 
 export async function handleTeamsMessage(payload: TeamsMessage): Promise<TeamsInvocationResult> {
   const { message } = payload;
@@ -20,13 +22,19 @@ export async function handleTeamsMessage(payload: TeamsMessage): Promise<TeamsIn
     return { status: "ignored" };
   }
 
+  const decisionId = `teams-${Date.now()}`;
+  initializeActivity(decisionId, ["SIGNAL", "HISTORIAN", "AUDITOR", "CHALLENGER", "SYNTHESIZER"]);
+
   try {
     // Call existing simulation pipeline
-    const result = await runSimulationWorkflow(prompt);
+    const result = await runSimulationWorkflow(prompt, decisionId);
     
     return {
       status: "success",
-      response: result
+      response: {
+        simulation: result,
+        activityFeed: buildActivityFeedCard(getActivity(decisionId)!)
+      }
     };
   } catch (error) {
     console.error("[Teams Bot] Error executing simulation:", error);

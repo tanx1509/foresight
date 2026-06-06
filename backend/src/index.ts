@@ -2,6 +2,7 @@ import { createWorkItem } from "./services/azureDevops";
 import { saveDecisionRecords, loadDecisionRecords } from "./services/decisionStore";
 import { runSimulationWorkflow } from "./services/simulator";
 import { handleTeamsMessage } from "./teams/bot";
+import { getActivity, initializeActivity } from "./teams/activityStore";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -78,7 +79,9 @@ const saveRecords = () => {
 app.post("/api/simulate", async (req, res) => {
   try {
     const { prompt } = req.body;
-    const result = await runSimulationWorkflow(prompt);
+    const decisionId = `sim-${Date.now()}`;
+    initializeActivity(decisionId, ["SIGNAL", "HISTORIAN", "AUDITOR", "CHALLENGER", "SYNTHESIZER"]);
+    const result = await runSimulationWorkflow(prompt, decisionId);
     res.json(result);
   } catch (error) {
     console.error(error);
@@ -100,6 +103,22 @@ app.post("/api/teams/message", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+app.get("/api/teams/activity/:decisionId", (req, res) => {
+  const feed = getActivity(req.params.decisionId);
+  if (!feed) {
+    return res.status(404).json({ error: "Activity not found" });
+  }
+  res.json(feed);
+});
+
+app.get("/api/teams/activity", (req, res) => {
+  const feed = require("./teams/activityStore").getLatestActivity();
+  if (!feed) {
+    return res.status(404).json({ error: "No activity found" });
+  }
+  res.json(feed);
 });
 
 app.post("/api/decisions", (req, res) => {
