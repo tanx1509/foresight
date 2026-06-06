@@ -86,6 +86,16 @@ export interface FailureSimulation {
 }
 
 export interface DecisionRecord {
+  scenarioId: string;
+  generatedBy: string[];
+  evidence: string[];
+  constraints: string[];
+  assumptions: string[];
+  confidence: string;
+  timestamp: string;
+}
+
+export interface ActionDecisionRecord {
   decisionId: string;
   timestamp: string;
   action: "Proceed" | "Delay" | "Request Review";

@@ -9,7 +9,7 @@ import {
   runChallengerAgent, 
   runSynthesizerAgent 
 } from "./agents";
-import { DecisionRecord, FailureSimulation } from "@foresight/shared";
+import { ActionDecisionRecord, FailureSimulation } from "@foresight/shared";
 import fs from "fs";
 import path from "path";
 
@@ -65,11 +65,11 @@ app.get("/api/debug/search", async (req, res) => {
 
 const PORT = 3001;
 
-const decisionRecords: DecisionRecord[] = [];
+const decisionRecordsStore: ActionDecisionRecord[] = [];
 const DB_FILE = path.join(__dirname, "../../decision_records.json");
 
 const saveRecords = () => {
-  fs.writeFileSync(DB_FILE, JSON.stringify(decisionRecords, null, 2));
+  fs.writeFileSync(DB_FILE, JSON.stringify(decisionRecordsStore, null, 2));
 };
 
 app.post("/api/simulate", async (req, res) => {
@@ -113,8 +113,30 @@ app.post("/api/simulate", async (req, res) => {
       }
     }
 
+    const decisionRecords = simulation.scenarios.map((scenario) => ({
+      scenarioId: scenario.id,
+      generatedBy: [
+        "Historian",
+        "Auditor",
+        "Challenger",
+        "Synthesizer"
+      ],
+      evidence: simulation.retrievedDocuments.map(
+        (doc) => doc.title
+      ),
+      constraints: simulation.constraints.map(
+        (c) => c.description
+      ),
+      assumptions: simulation.assumptions.map(
+        (a) => a.assumption
+      ),
+      confidence: simulation.context.confidence,
+      timestamp: new Date().toISOString()
+    }));
+
     res.json({
       ...simulation,
+      decisionRecords,
       azureWorkItems: createdWorkItems
     });
   } catch (error) {
@@ -125,13 +147,13 @@ app.post("/api/simulate", async (req, res) => {
 
 app.post("/api/decisions", (req, res) => {
   const { action, simulationData } = req.body;
-  const record: DecisionRecord = {
+  const record: ActionDecisionRecord = {
     decisionId: `dec-${Date.now()}`,
     timestamp: new Date().toISOString(),
     action,
     simulationData
   };
-  decisionRecords.push(record);
+  decisionRecordsStore.push(record);
   saveRecords();
   res.json({ success: true, record });
 });
