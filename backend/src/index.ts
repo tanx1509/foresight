@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { 
@@ -116,7 +117,8 @@ app.post("/api/decisions", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`FORESIGHT Backend Phase 1 running on http://localhost:${PORT}`);
+  console.log(`FORESIGHT Backend Phase 3A running on http://localhost:${PORT}`);
   console.log(`Runtime Configuration check:`);
   console.log(`> SEARCH_PROVIDER: ${process.env.SEARCH_PROVIDER || 'mock'}`);
+  console.log(`> OPERATIONAL_PROVIDER: ${process.env.OPERATIONAL_PROVIDER || 'mock'}`);
 });
