@@ -23,6 +23,9 @@ interface DecisionRecord {
   assumptions: string[];
   confidence: string;
   timestamp: string;
+  azureWorkItemId?: number;
+  azureWorkItemTitle?: string;
+  azureWorkItemUrl?: string;
 }
 
 export default function HistoryDashboard() {
@@ -56,6 +59,7 @@ export default function HistoryDashboard() {
   const totalDecisions = records.length;
   const uniqueScenarios = new Set(records.map((r) => r.scenarioId)).size;
   const totalEvidence = records.reduce((acc, r) => acc + (r.evidence?.length || 0), 0);
+  const trackedAzureIssues = new Set(records.map((r) => r.azureWorkItemId).filter((id) => id != null)).size;
   
   const avgConfidence = useMemo(() => {
     if (records.length === 0) return "N/A";
@@ -122,7 +126,7 @@ export default function HistoryDashboard() {
         </div>
 
         {/* KPI Row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
           <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
             <div className="flex items-center gap-3 text-slate-400 mb-4">
               <Activity className="w-5 h-5 text-indigo-400" />
@@ -153,6 +157,15 @@ export default function HistoryDashboard() {
               <h3 className="font-medium">Evidence Sources</h3>
             </div>
             <p className="text-3xl font-bold text-slate-100">{totalEvidence}</p>
+          </div>
+          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div className="flex items-center gap-3 text-slate-400 mb-4">
+              <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 14v-4H6v4h4zm6 0v-4h-4v4h4zm-6-6V7H6v4h4zm6 0V7h-4v4h4z" />
+              </svg>
+              <h3 className="font-medium">Tracked Azure Issues</h3>
+            </div>
+            <p className="text-3xl font-bold text-slate-100">{trackedAzureIssues}</p>
           </div>
         </div>
 
@@ -288,6 +301,42 @@ export default function HistoryDashboard() {
                         </div>
 
                       </div>
+
+                      {/* Azure Traceability Section */}
+                      {record.azureWorkItemId && (
+                        <div className="mt-6 pt-6 border-t border-slate-800/50">
+                          <div className="bg-[#0078D4]/5 border border-[#0078D4]/20 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0078D4]/40 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center shrink-0">
+                                <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
+                                  <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 14v-4H6v4h4zm6 0v-4h-4v4h4zm-6-6V7H6v4h4zm6 0V7h-4v4h4z" />
+                                </svg>
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-sm font-semibold text-[#0078D4] uppercase tracking-wider">
+                                    Azure Issue #{record.azureWorkItemId}
+                                  </span>
+                                  <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300">
+                                    To Do
+                                  </span>
+                                </div>
+                                <h4 className="text-lg font-medium text-slate-200">
+                                  {record.azureWorkItemTitle || record.scenarioId}
+                                </h4>
+                              </div>
+                            </div>
+                            <a 
+                              href={record.azureWorkItemUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-5 py-2.5 bg-[#0078D4] hover:bg-[#0078D4]/90 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap shadow-lg shadow-[#0078D4]/20"
+                            >
+                              Open In Azure &rarr;
+                            </a>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

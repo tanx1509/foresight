@@ -98,7 +98,7 @@ app.post("/api/simulate", async (req, res) => {
       }
     };
 
-    const createdWorkItems = [];
+    const createdWorkItems: { id: number; title: string; url?: string }[] = [];
     for (const scenario of simulation.scenarios || []) {
       try {
         const workItem = await createWorkItem(
@@ -107,33 +107,42 @@ app.post("/api/simulate", async (req, res) => {
         );
         createdWorkItems.push({
           id: workItem.id,
-          title: scenario.title
+          title: scenario.title,
+          url: workItem._links?.html?.href
         });
       } catch (err) {
         console.error("Azure Work Item Creation Failed:", err);
       }
     }
 
-    const decisionRecords = simulation.scenarios.map((scenario) => ({
-      scenarioId: scenario.id,
-      generatedBy: [
-        "Historian",
-        "Auditor",
-        "Challenger",
-        "Synthesizer"
-      ],
-      evidence: simulation.retrievedDocuments.map(
-        (doc) => doc.title
-      ),
-      constraints: simulation.constraints.map(
-        (c) => c.description
-      ),
-      assumptions: simulation.assumptions.map(
-        (a) => a.assumption
-      ),
-      confidence: simulation.context.confidence,
-      timestamp: new Date().toISOString()
-    }));
+    const decisionRecords = simulation.scenarios.map((scenario) => {
+      const matchingItem = createdWorkItems.find(wi => wi.title === scenario.title);
+      return {
+        scenarioId: scenario.id,
+        generatedBy: [
+          "Historian",
+          "Auditor",
+          "Challenger",
+          "Synthesizer"
+        ],
+        evidence: simulation.retrievedDocuments.map(
+          (doc) => doc.title
+        ),
+        constraints: simulation.constraints.map(
+          (c) => c.description
+        ),
+        assumptions: simulation.assumptions.map(
+          (a) => a.assumption
+        ),
+        confidence: simulation.context.confidence,
+        timestamp: new Date().toISOString(),
+        ...(matchingItem && {
+          azureWorkItemId: matchingItem.id,
+          azureWorkItemTitle: matchingItem.title,
+          azureWorkItemUrl: matchingItem.url || `https://dev.azure.com/foresight-buildai/FORESIGHT/_workitems/edit/${matchingItem.id}`
+        })
+      };
+    });
 
     saveDecisionRecords(decisionRecords);
 

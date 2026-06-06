@@ -93,6 +93,9 @@ export interface DecisionRecord {
   assumptions: string[];
   confidence: string;
   timestamp: string;
+  azureWorkItemId?: number;
+  azureWorkItemTitle?: string;
+  azureWorkItemUrl?: string;
 }
 
 export interface ActionDecisionRecord {
