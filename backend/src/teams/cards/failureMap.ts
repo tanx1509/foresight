@@ -1,4 +1,4 @@
-export function buildFailureMapCard(simulation: any) {
+export function buildFailureMapCard(simulation: any, decisionId: string) {
   const { context, scenarios, decisionRecords } = simulation;
 
   const scenarioItems = scenarios.map((scenario: any) => {
@@ -55,7 +55,38 @@ export function buildFailureMapCard(simulation: any) {
           { title: "Scenarios", value: `${scenarios.length}` }
         ]
       },
-      ...scenarioItems
+      ...scenarioItems,
+      {
+        type: "ActionSet",
+        actions: [
+          {
+            type: "Action.Submit",
+            title: "Acknowledge & Proceed",
+            style: "positive",
+            data: {
+              action: "acknowledgeAndProceed",
+              decisionId: decisionId
+            }
+          },
+          {
+            type: "Action.Submit",
+            title: "Request Review",
+            data: {
+              action: "requestReview",
+              decisionId: decisionId
+            }
+          },
+          {
+            type: "Action.Submit",
+            title: "Delay Decision",
+            style: "destructive",
+            data: {
+              action: "delayDecision",
+              decisionId: decisionId
+            }
+          }
+        ]
+      }
     ]
   };
 }

@@ -5,6 +5,7 @@ import { handleTeamsMessage } from "./teams/bot";
 import { getActivity, initializeActivity } from "./teams/activityStore";
 import { getSimulation } from "./teams/simulationStore";
 import { buildFailureMapCard } from "./teams/cards/failureMap";
+import { saveDecisionRecord, getDecisionRecord, DecisionRecord } from "./teams/decisionStore";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -130,8 +131,52 @@ app.get("/api/teams/failure-map/:decisionId", (req, res) => {
   }
   res.json({
     decisionId: req.params.decisionId,
-    card: buildFailureMapCard(simulation)
+    card: buildFailureMapCard(simulation, req.params.decisionId)
   });
+});
+
+app.post("/api/teams/action", (req, res) => {
+  const { decisionId, action } = req.body;
+  
+  const simulation = getSimulation(decisionId);
+  if (!simulation) {
+    return res.status(404).json({ error: "Simulation not found" });
+  }
+
+  let status: "APPROVED" | "UNDER_REVIEW" | "DELAYED" = "UNDER_REVIEW";
+  if (action === "acknowledgeAndProceed") status = "APPROVED";
+  else if (action === "delayDecision") status = "DELAYED";
+  else if (action === "requestReview") status = "UNDER_REVIEW";
+
+  const azureWorkItems = simulation.azureWorkItems?.map((wi: any) => wi.id) || [];
+  const scenarioCount = simulation.scenarios?.length || 0;
+  const acknowledgedScenarios = simulation.scenarios?.map((s: any) => s.id) || [];
+
+  const record: DecisionRecord = {
+    decisionId,
+    decisionText: simulation.context?.decisionType || "Unknown Decision",
+    action,
+    status,
+    timestamp: new Date().toISOString(),
+    scenarioCount,
+    acknowledgedScenarios,
+    azureWorkItems
+  };
+
+  saveDecisionRecord(record);
+
+  res.json({
+    success: true,
+    decisionRecord: record
+  });
+});
+
+app.get("/api/teams/decision-record/:decisionId", (req, res) => {
+  const record = getDecisionRecord(req.params.decisionId);
+  if (!record) {
+    return res.status(404).json({ error: "Decision record not found" });
+  }
+  res.json(record);
 });
 
 app.post("/api/decisions", (req, res) => {
