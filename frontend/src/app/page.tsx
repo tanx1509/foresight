@@ -6,6 +6,7 @@ import AgentTimeline from "@/components/AgentTimeline";
 import SimulationDashboard from "@/components/SimulationDashboard";
 import ForesightLogo from "@/components/ForesightLogo";
 import { FailureSimulation } from "@foresight/shared";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [simulationState, setSimulationState] = useState<"idle" | "running" | "completed">("idle");
@@ -53,7 +54,7 @@ export default function Home() {
     }
   };
 
-  const router = require("next/navigation").useRouter();
+  const router = useRouter();
 
   const handleDecision = async (action: string) => {
     try {
