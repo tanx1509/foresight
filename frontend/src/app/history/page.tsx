@@ -91,98 +91,98 @@ export default function HistoryDashboard() {
     });
   }, [records, searchQuery, confidenceFilter]);
 
-  const getConfidenceColor = (conf: string) => {
-    if (conf === "High") return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-    if (conf === "Medium") return "bg-amber-500/10 text-amber-400 border-amber-500/20";
-    return "bg-rose-500/10 text-rose-400 border-rose-500/20";
+  const getConfidenceStyle = (conf: string) => {
+    if (conf === "High") return "bg-fluent-success-bg text-fluent-success border-fluent-success/20";
+    if (conf === "Medium") return "bg-fluent-warning-bg text-fluent-warning border-fluent-warning/20";
+    return "bg-fluent-critical-bg text-fluent-critical border-fluent-critical/20";
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      <div className="min-h-screen bg-fluent-bg flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-fluent-brand"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-8 overflow-y-auto">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-fluent-bg text-fluent-text p-6 overflow-y-auto">
+      <div className="max-w-7xl mx-auto space-y-6">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        {/* Header - Enterprise Native */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-fluent-border pb-4">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
-              Decision Intelligence History
+            <h1 className="text-[24px] font-semibold text-fluent-text tracking-tight">
+              Decision Intelligence
             </h1>
-            <p className="text-slate-400 mt-2 text-lg">
-              Historical record of AI generated decisions, risks, assumptions, evidence, and operational constraints.
+            <p className="text-fluent-text-muted mt-1 text-[13px]">
+              Organizational memory of AI-driven risk simulations, assumptions, and DevOps synchronization.
             </p>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-sm font-medium">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-fluent-surface border border-fluent-border rounded-md text-fluent-brand text-[13px] font-semibold fluent-shadow-flyout">
             <BrainCircuit className="w-4 h-4" />
-            FORESIGHT Live Memory
+            FORESIGHT Active
           </div>
         </div>
 
-        {/* KPI Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
-            <div className="flex items-center gap-3 text-slate-400 mb-4">
-              <Activity className="w-5 h-5 text-indigo-400" />
-              <h3 className="font-medium">Total Decisions</h3>
+        {/* KPI Row - Dense Azure Style */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="bg-fluent-surface border border-fluent-border rounded-sm p-3 flex flex-col justify-between fluent-shadow transition-shadow hover:shadow-elevation-8">
+            <div className="flex items-center gap-1.5 text-fluent-text-muted mb-1.5">
+              <Activity className="w-3.5 h-3.5 text-fluent-brand" />
+              <h3 className="text-[11px] uppercase font-semibold tracking-wider">Total Decisions</h3>
             </div>
-            <p className="text-3xl font-bold text-slate-100">{totalDecisions}</p>
+            <p className="text-[20px] font-light text-fluent-text">{totalDecisions}</p>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
-            <div className="flex items-center gap-3 text-slate-400 mb-4">
-              <Layers className="w-5 h-5 text-cyan-400" />
-              <h3 className="font-medium">Unique Scenarios</h3>
+          <div className="bg-fluent-surface border border-fluent-border rounded-sm p-3 flex flex-col justify-between fluent-shadow transition-shadow hover:shadow-elevation-8">
+            <div className="flex items-center gap-1.5 text-fluent-text-muted mb-1.5">
+              <Layers className="w-3.5 h-3.5 text-fluent-brand" />
+              <h3 className="text-[11px] uppercase font-semibold tracking-wider">Unique Scenarios</h3>
             </div>
-            <p className="text-3xl font-bold text-slate-100">{uniqueScenarios}</p>
+            <p className="text-[20px] font-light text-fluent-text">{uniqueScenarios}</p>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
-            <div className="flex items-center gap-3 text-slate-400 mb-4">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-              <h3 className="font-medium">Avg Confidence</h3>
+          <div className="bg-fluent-surface border border-fluent-border rounded-sm p-3 flex flex-col justify-between fluent-shadow transition-shadow hover:shadow-elevation-8">
+            <div className="flex items-center gap-1.5 text-fluent-text-muted mb-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-fluent-brand" />
+              <h3 className="text-[11px] uppercase font-semibold tracking-wider">Avg Confidence</h3>
             </div>
-            <p className={`text-3xl font-bold ${
-              avgConfidence === 'High' ? 'text-emerald-400' : 
-              avgConfidence === 'Medium' ? 'text-amber-400' : 'text-rose-400'
+            <p className={`text-[20px] font-light ${
+              avgConfidence === 'High' ? 'text-fluent-success' : 
+              avgConfidence === 'Medium' ? 'text-fluent-warning' : 'text-fluent-critical'
             }`}>{avgConfidence}</p>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
-            <div className="flex items-center gap-3 text-slate-400 mb-4">
-              <FileText className="w-5 h-5 text-purple-400" />
-              <h3 className="font-medium">Evidence Sources</h3>
+          <div className="bg-fluent-surface border border-fluent-border rounded-sm p-3 flex flex-col justify-between fluent-shadow transition-shadow hover:shadow-elevation-8">
+            <div className="flex items-center gap-1.5 text-fluent-text-muted mb-1.5">
+              <FileText className="w-3.5 h-3.5 text-fluent-brand" />
+              <h3 className="text-[11px] uppercase font-semibold tracking-wider">Evidence Sources</h3>
             </div>
-            <p className="text-3xl font-bold text-slate-100">{totalEvidence}</p>
+            <p className="text-[20px] font-light text-fluent-text">{totalEvidence}</p>
           </div>
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition-colors">
-            <div className="flex items-center gap-3 text-slate-400 mb-4">
-              <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
+          <div className="bg-fluent-surface border border-fluent-border rounded-sm p-3 flex flex-col justify-between fluent-shadow transition-shadow hover:shadow-elevation-8">
+            <div className="flex items-center gap-1.5 text-fluent-text-muted mb-1.5">
+              <svg className="w-3.5 h-3.5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 14v-4H6v4h4zm6 0v-4h-4v4h4zm-6-6V7H6v4h4zm6 0V7h-4v4h4z" />
               </svg>
-              <h3 className="font-medium">Tracked Azure Issues</h3>
+              <h3 className="text-[11px] uppercase font-semibold tracking-wider">Azure Syncs</h3>
             </div>
-            <p className="text-3xl font-bold text-slate-100">{trackedAzureIssues}</p>
+            <p className="text-[20px] font-light text-fluent-text">{trackedAzureIssues}</p>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex flex-col sm:flex-row gap-4 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+        <div className="flex flex-col sm:flex-row gap-4 bg-fluent-surface p-3 rounded-md border border-fluent-border fluent-shadow">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fluent-text-muted" />
             <input
               type="text"
-              placeholder="Search scenarios, evidence, constraints, assumptions..."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 pl-10 pr-4 text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+              placeholder="Search history, scenarios, constraints..."
+              className="w-full bg-fluent-bg border border-fluent-border-subtle rounded-md py-1.5 pl-9 pr-3 text-[13px] text-fluent-text focus:outline-none focus:ring-1 focus:ring-fluent-brand transition-all"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <select
-            className="bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500"
+            className="bg-fluent-bg border border-fluent-border-subtle rounded-md py-1.5 px-3 text-[13px] text-fluent-text focus:outline-none focus:ring-1 focus:ring-fluent-brand"
             value={confidenceFilter}
             onChange={(e) => setConfidenceFilter(e.target.value)}
           >
@@ -194,60 +194,60 @@ export default function HistoryDashboard() {
         </div>
 
         {/* List */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {filteredRecords.length === 0 ? (
-            <div className="bg-slate-900/50 border border-slate-800 border-dashed rounded-2xl p-12 text-center flex flex-col items-center">
-              <ShieldAlert className="w-12 h-12 text-slate-600 mb-4" />
-              <h3 className="text-xl font-medium text-slate-300">No historical decisions found.</h3>
-              <p className="text-slate-500 mt-2">Adjust your filters or run a new simulation to generate records.</p>
+            <div className="bg-fluent-surface border border-fluent-border rounded-md p-10 text-center flex flex-col items-center">
+              <ShieldAlert className="w-10 h-10 text-fluent-border mb-3" />
+              <h3 className="text-[16px] font-semibold text-fluent-text">No records found</h3>
+              <p className="text-[13px] text-fluent-text-muted mt-1">Adjust search filters or run a new simulation in Microsoft Teams.</p>
             </div>
           ) : (
             filteredRecords.map((record, idx) => {
               const isExpanded = expandedCards.has(idx);
-              const confClass = getConfidenceColor(record.confidence);
+              const confClass = getConfidenceStyle(record.confidence);
               
               return (
-                <div key={`${record.scenarioId}-${idx}`} className="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all duration-300 shadow-xl shadow-black/20">
-                  {/* Card Header (Clickable for Expand) */}
+                <div key={`${record.scenarioId}-${idx}`} className="bg-fluent-surface border border-fluent-border rounded-sm overflow-hidden hover:bg-fluent-surface-hover hover:shadow-md cursor-pointer transition-all duration-200 fluent-shadow">
+                  {/* Card Header */}
                   <div 
-                    className="p-6 cursor-pointer flex flex-col md:flex-row gap-6 justify-between items-start md:items-center"
+                    className="px-4 py-3 cursor-pointer flex flex-col md:flex-row gap-4 justify-between items-start md:items-center"
                     onClick={() => toggleExpand(idx)}
                   >
-                    <div className="space-y-2 flex-1">
+                    <div className="space-y-1 flex-1">
                       <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-slate-500">{new Date(record.timestamp).toLocaleDateString()}</span>
-                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${confClass}`}>
+                        <span className="text-[12px] font-mono text-fluent-text-muted">{new Date(record.timestamp).toLocaleString()}</span>
+                        <span className={`px-2 py-0.5 rounded-sm text-[11px] font-semibold border ${confClass}`}>
                           {record.confidence} Confidence
                         </span>
                       </div>
-                      <h2 className="text-2xl font-semibold text-slate-100">{record.scenarioId}</h2>
-                      <div className="flex flex-wrap gap-2 text-sm text-slate-400">
-                        <span className="flex items-center gap-1"><Users className="w-4 h-4"/> {record.generatedBy.length} Agents</span>
-                        <span className="flex items-center gap-1"><FileText className="w-4 h-4"/> {record.evidence?.length || 0} Evidence</span>
-                        <span className="flex items-center gap-1"><AlertTriangle className="w-4 h-4"/> {record.constraints?.length || 0} Constraints</span>
-                        <span className="flex items-center gap-1"><BrainCircuit className="w-4 h-4"/> {record.assumptions?.length || 0} Assumptions</span>
+                      <h2 className="text-[16px] font-semibold text-fluent-text">{record.scenarioId}</h2>
+                      <div className="flex flex-wrap gap-3 text-[12px] text-fluent-text-muted mt-1">
+                        <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5"/> {(record.generatedBy || []).length} Agents</span>
+                        <span className="flex items-center gap-1"><FileText className="w-3.5 h-3.5"/> {record.evidence?.length || 0} Evidence</span>
+                        <span className="flex items-center gap-1"><AlertTriangle className="w-3.5 h-3.5"/> {record.constraints?.length || 0} Constraints</span>
+                        <span className="flex items-center gap-1"><BrainCircuit className="w-3.5 h-3.5"/> {record.assumptions?.length || 0} Assumptions</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors shrink-0">
-                      {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                    <div className="flex items-center justify-center w-8 h-8 rounded hover:bg-fluent-border-subtle transition-colors shrink-0">
+                      {isExpanded ? <ChevronUp className="w-4 h-4 text-fluent-text-muted" /> : <ChevronDown className="w-4 h-4 text-fluent-text-muted" />}
                     </div>
                   </div>
 
                   {/* Expanded Content */}
                   {isExpanded && (
-                    <div className="p-6 pt-0 border-t border-slate-800/50 bg-slate-900/30">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                    <div className="p-5 border-t border-fluent-border bg-fluent-bg">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
-                        {/* Column 1: Evidence & Agents */}
-                        <div className="space-y-6">
+                        {/* Column 1 */}
+                        <div className="space-y-5">
                           <div>
-                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <Users className="w-4 h-4" /> Generated By
+                            <h4 className="text-[12px] font-semibold text-fluent-text uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <Users className="w-3.5 h-3.5 text-fluent-text-muted" /> Agent Trace
                             </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {record.generatedBy.map((agent, i) => (
-                                <span key={i} className="px-3 py-1 bg-slate-800 text-slate-300 rounded-lg text-sm border border-slate-700/50">
+                            <div className="flex flex-wrap gap-1.5">
+                              {(record.generatedBy || []).map((agent, i) => (
+                                <span key={i} className="px-2 py-0.5 bg-fluent-surface text-fluent-text rounded-sm text-[12px] border border-fluent-border-subtle">
                                   {agent}
                                 </span>
                               ))}
@@ -255,13 +255,13 @@ export default function HistoryDashboard() {
                           </div>
 
                           <div>
-                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <FileText className="w-4 h-4" /> Evidence
+                            <h4 className="text-[12px] font-semibold text-fluent-text uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <FileText className="w-3.5 h-3.5 text-fluent-text-muted" /> Retrieved Evidence
                             </h4>
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {record.evidence.map((ev, i) => (
-                                <li key={i} className="text-sm text-slate-300 bg-slate-800/50 px-4 py-2.5 rounded-lg border border-slate-700/50 flex items-start gap-3">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
+                                <li key={i} className="text-[13px] text-fluent-text bg-fluent-surface px-3 py-2 rounded-sm border border-fluent-border-subtle flex items-start gap-2">
+                                  <span className="text-fluent-brand mt-0.5">•</span>
                                   {ev}
                                 </li>
                               ))}
@@ -269,16 +269,16 @@ export default function HistoryDashboard() {
                           </div>
                         </div>
 
-                        {/* Column 2: Constraints & Assumptions */}
-                        <div className="space-y-6">
+                        {/* Column 2 */}
+                        <div className="space-y-5">
                           <div>
-                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <AlertTriangle className="w-4 h-4 text-amber-500" /> Operational Constraints
+                            <h4 className="text-[12px] font-semibold text-fluent-text uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <AlertTriangle className="w-3.5 h-3.5 text-fluent-warning" /> Constraints
                             </h4>
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {record.constraints.map((c, i) => (
-                                <li key={i} className="text-sm text-slate-300 bg-amber-500/5 px-4 py-2.5 rounded-lg border border-amber-500/10 flex items-start gap-3">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
+                                <li key={i} className="text-[13px] text-fluent-text bg-fluent-surface px-3 py-2 rounded-sm border border-fluent-border-subtle flex items-start gap-2">
+                                  <span className="text-fluent-warning mt-0.5">•</span>
                                   {c}
                                 </li>
                               ))}
@@ -286,13 +286,13 @@ export default function HistoryDashboard() {
                           </div>
 
                           <div>
-                            <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                              <BrainCircuit className="w-4 h-4 text-cyan-500" /> Challenged Assumptions
+                            <h4 className="text-[12px] font-semibold text-fluent-text uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                              <BrainCircuit className="w-3.5 h-3.5 text-fluent-brand" /> Assumptions
                             </h4>
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {record.assumptions.map((a, i) => (
-                                <li key={i} className="text-sm text-slate-300 bg-cyan-500/5 px-4 py-2.5 rounded-lg border border-cyan-500/10 flex items-start gap-3">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 mt-1.5 shrink-0" />
+                                <li key={i} className="text-[13px] text-fluent-text bg-fluent-surface px-3 py-2 rounded-sm border border-fluent-border-subtle flex items-start gap-2">
+                                  <span className="text-fluent-brand mt-0.5">•</span>
                                   {a}
                                 </li>
                               ))}
@@ -304,24 +304,19 @@ export default function HistoryDashboard() {
 
                       {/* Azure Traceability Section */}
                       {record.azureWorkItemId && (
-                        <div className="mt-6 pt-6 border-t border-slate-800/50">
-                          <div className="bg-[#0078D4]/5 border border-[#0078D4]/20 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0078D4]/40 transition-colors">
-                            <div className="flex items-center gap-4">
-                              <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center shrink-0">
-                                <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
-                                  <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 14v-4H6v4h4zm6 0v-4h-4v4h4zm-6-6V7H6v4h4zm6 0V7h-4v4h4z" />
-                                </svg>
-                              </div>
+                        <div className="mt-5 pt-5 border-t border-fluent-border-subtle">
+                          <div className="bg-fluent-surface border-t-2 border-t-[#0078D4] border border-fluent-border rounded-md p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 14v-4H6v4h4zm6 0v-4h-4v4h4zm-6-6V7H6v4h4zm6 0V7h-4v4h4z" />
+                              </svg>
                               <div>
-                                <div className="flex items-center gap-2 mb-1">
-                                  <span className="text-sm font-semibold text-[#0078D4] uppercase tracking-wider">
-                                    Azure Issue #{record.azureWorkItemId}
-                                  </span>
-                                  <span className="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300">
-                                    To Do
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <span className="text-[12px] font-semibold text-[#0078D4] uppercase tracking-wider">
+                                    Azure DevOps Bug #{record.azureWorkItemId}
                                   </span>
                                 </div>
-                                <h4 className="text-lg font-medium text-slate-200">
+                                <h4 className="text-[14px] font-medium text-fluent-text hover:underline cursor-pointer">
                                   {record.azureWorkItemTitle || record.scenarioId}
                                 </h4>
                               </div>
@@ -330,9 +325,9 @@ export default function HistoryDashboard() {
                               href={record.azureWorkItemUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-5 py-2.5 bg-[#0078D4] hover:bg-[#0078D4]/90 text-white text-sm font-medium rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap shadow-lg shadow-[#0078D4]/20"
+                              className="px-4 py-1.5 bg-fluent-surface border border-fluent-border hover:bg-fluent-surface-hover hover:shadow-sm text-fluent-text text-[13px] font-semibold rounded-md transition-all duration-200 cursor-pointer flex items-center gap-1 whitespace-nowrap"
                             >
-                              Open In Azure &rarr;
+                              Open Work Item
                             </a>
                           </div>
                         </div>

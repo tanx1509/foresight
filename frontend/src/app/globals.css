@@ -3,25 +3,45 @@
 @theme {
   --font-sans: var(--font-inter);
   
-  --color-teams-brand: #5b5fc7;
-  --color-teams-brand-hover: #4f52b2;
-  --color-teams-bg: #f5f5f5;
-  --color-teams-surface: #ffffff;
-  --color-teams-border: #e0e0e0;
-  --color-teams-text: #242424;
-  --color-teams-subtext: #616161;
-  --color-teams-critical: #c50f1f;
-  --color-teams-high: #e36a19;
-  --color-teams-medium: #f2c811;
-  --color-teams-success: #107c10;
+  /* FORESIGHT Signature Brand Color */
+  --color-fluent-brand: #0F6CBD;
+  --color-fluent-brand-hover: #115EA3;
+  --color-fluent-brand-subtle: #EBF3FC;
+  
+  /* Fluent 2 Neutral Palette */
+  --color-fluent-bg: #FAF9F8;
+  --color-fluent-surface: #FFFFFF;
+  --color-fluent-surface-hover: #F3F2F1;
+  
+  /* Borders */
+  --color-fluent-border: #E1DFDD;
+  --color-fluent-border-subtle: #EDEBE9;
+  
+  /* Typography */
+  --color-fluent-text: #242424;
+  --color-fluent-text-muted: #616161;
+  
+  /* Semantic */
+  --color-fluent-critical: #C50F1F;
+  --color-fluent-critical-bg: #FDF3F4;
+  --color-fluent-warning: #9E4300;
+  --color-fluent-warning-bg: #FFF4CE;
+  --color-fluent-success: #107C10;
+  --color-fluent-success-bg: #F1FAF1;
 }
 
 body {
-  background-color: var(--color-teams-bg);
-  color: var(--color-teams-text);
+  background-color: var(--color-fluent-bg);
+  color: var(--color-fluent-text);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-.teams-shadow {
+/* Authentic Microsoft Teams Shadow / Elevation 4 */
+.fluent-shadow {
   box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+}
+
+.fluent-shadow-flyout {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.14), 0 0px 2px 0 rgba(0, 0, 0, 0.12);
 }
