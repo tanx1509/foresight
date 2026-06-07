@@ -1,6 +1,1702 @@
 [
   {
-    "decisionId": "dec-1780761921428",
-    "timestamp": "2026-06-06T16:05:21.428Z"
+    "decisionId": "dec-1780817464945",
+    "timestamp": "2026-06-07T07:31:04.945Z",
+    "action": "Proceed",
+    "simulationData": {
+      "context": {
+        "decisionType": "Observability Migration",
+        "deadline": "TBD",
+        "affectedTeams": [
+          "SRE",
+          "DevOps",
+          "Engineering"
+        ],
+        "owner": "System Fallback",
+        "confidence": "Medium"
+      },
+      "retrievedDocuments": [
+        {
+          "id": "chunk-doc-99b14a6b-0",
+          "title": "## Objective 2: Secure Vendor Integrations",
+          "content": "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue stream. We cannot afford another outage when we deploy the next major version next week. 1:** Achieve a 40% incident reduction target for all authentication-related production incidents. 2:** Reduce the average latency spike during peak payment gateway traffic from 400ms to < 100ms. 3:** Eliminate staging mismatch errors by achieving 100% environment parity between staging and production.",
+          "tags": [],
+          "relevanceScore": 5.07,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:30:56.823Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-9dd5f342-2",
+          "title": "## Next Steps",
+          "content": "[## Next Steps] The decision to enforce the security review bottleneck, while painful and resulting in a 3 week delay, ultimately saved us from a highly public outage and complicated rollback. - Never deploy a payment gateway without clearing the security review bottleneck first. - Ensure the legacy components are properly mocked in staging to avoid a staging mismatch. - Mandate strict latency spike monitoring on all vendor dependency integrations.",
+          "tags": [],
+          "relevanceScore": 5.07,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:30:56.823Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-1",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the deliverables deliverables onboarding optimization paradigm stakeholders paradigm paradigm pipeline pipeline stakeholders roadmap optimization optimization onboarding scalability synergy alignment pipeline optimization resilience alignment alignment paradigm bandwidth optimization synergy pipeline resilience resilience",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:30:56.823Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-4",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the resilience roadmap roadmap pipeline pipeline stakeholders stakeholders stakeholders synergy deliverables bandwidth bandwidth stakeholders deliverables stakeholders roadmap onboarding alignment paradigm onboarding onboarding onboarding synergy deliverables deliverables deliverables resilience roadmap deliverables resilience",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:30:56.823Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-5",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the paradigm bandwidth optimization pipeline bandwidth alignment roadmap deliverables synergy scalability roadmap resilience roadmap pipeline pipeline scalability resilience paradigm paradigm roadmap alignment scalability resilience optimization scalability onboarding alignment pipeline optimization bandwidth",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:30:56.823Z",
+          "author": "Local Corpus"
+        }
+      ],
+      "constraints": [
+        {
+          "category": "capacity",
+          "severity": "High",
+          "description": "Sprint capacity is at 100%. Available hours: 168."
+        },
+        {
+          "category": "metrics",
+          "severity": "High",
+          "description": "PR review times increased by 61%. Recent avg: 6.8h."
+        },
+        {
+          "category": "delays",
+          "severity": "High",
+          "description": "Detected 2 rollback events recently."
+        }
+      ],
+      "assumptions": [
+        {
+          "assumption": "Historical dashboards can be migrated cleanly.",
+          "challenge": "Query language differences will render 40% of complex dashboards useless.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue str..."
+          ],
+          "evidenceId": "chunk-doc-99b14a6b-0"
+        },
+        {
+          "assumption": "On-call teams understand the new platform.",
+          "challenge": "Lack of muscle memory will increase MTTR during the first 30 days.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Next Steps] The decision to enforce the security review bottleneck, while painful and resulting ..."
+          ],
+          "evidenceId": "chunk-doc-9dd5f342-2"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "fallback-scenario-0",
+          "title": "Alert Coverage Gaps During Cutover",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-99b14a6b-0"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "Critical",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Objective 2: Secure Vendor Integrations",
+              "excerpt": "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue stream. We cannot afford another outage when we deplo..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Objective 2: Secure Vendor Integrations' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-1",
+          "title": "Historical Dashboards Become Unavailable",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-9dd5f342-2"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Next Steps",
+              "excerpt": "[## Next Steps] The decision to enforce the security review bottleneck, while painful and resulting in a 3 week delay, ultimately saved us from a high..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Next Steps' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-2",
+          "title": "Metric Name Translation Errors",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-1"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the deliverables deliverables onboarding optimization paradigm stakeholders paradigm paradigm pipeline pipe..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        }
+      ],
+      "agentTraces": {
+        "SIGNAL": [
+          "Extracting context via Azure OpenAI...",
+          "Azure OpenAI failed. Fallback triggered: Categorized as 'Observability Migration'."
+        ],
+        "HISTORIAN": [
+          "Initializing retrieval engine via providerFactory abstraction.",
+          "SearchProvider returned top 5 results.",
+          "Rank 1: ## Objective 2: Secure Vendor Integrations (Score: 5.07)",
+          "Rank 2: ## Next Steps (Score: 5.07)",
+          "Rank 3: ## Detailed Analysis (Score: 2.59)",
+          "Rank 4: ## Conclusion (Score: 2.59)",
+          "Rank 5: ## Conclusion (Score: 2.59)"
+        ],
+        "AUDITOR": [
+          "Loading sprint metrics...",
+          "Loading PR metrics...",
+          "Loading deployment metrics...",
+          "Evaluating capacity thresholds...",
+          "Evaluating review-time trends...",
+          "Evaluating deployment stability...",
+          "Generated 3 operational constraints."
+        ],
+        "CHALLENGER": [
+          "Calling Azure OpenAI Challenger Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific assumptions."
+        ],
+        "SYNTHESIZER": [
+          "Calling Azure OpenAI Synthesizer Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific scenarios."
+        ]
+      },
+      "decisionRecords": [
+        {
+          "scenarioId": "fallback-scenario-0",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Next Steps",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:30:59.112Z",
+          "azureWorkItemId": 90,
+          "azureWorkItemTitle": "Alert Coverage Gaps During Cutover",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/90"
+        },
+        {
+          "scenarioId": "fallback-scenario-1",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Next Steps",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:30:59.112Z",
+          "azureWorkItemId": 91,
+          "azureWorkItemTitle": "Historical Dashboards Become Unavailable",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/91"
+        },
+        {
+          "scenarioId": "fallback-scenario-2",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Next Steps",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:30:59.112Z",
+          "azureWorkItemId": 92,
+          "azureWorkItemTitle": "Metric Name Translation Errors",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/92"
+        }
+      ],
+      "azureWorkItems": [
+        {
+          "id": 90,
+          "title": "Alert Coverage Gaps During Cutover",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/90"
+        },
+        {
+          "id": 91,
+          "title": "Historical Dashboards Become Unavailable",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/91"
+        },
+        {
+          "id": 92,
+          "title": "Metric Name Translation Errors",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/92"
+        }
+      ]
+    }
+  },
+  {
+    "decisionId": "dec-1780817502780",
+    "timestamp": "2026-06-07T07:31:42.780Z",
+    "action": "Request Review",
+    "simulationData": {
+      "context": {
+        "decisionType": "Frontend Rewrite",
+        "deadline": "TBD",
+        "affectedTeams": [
+          "Frontend",
+          "Design",
+          "Product"
+        ],
+        "owner": "System Fallback",
+        "confidence": "Medium"
+      },
+      "retrievedDocuments": [
+        {
+          "id": "chunk-doc-99b14a6b-0",
+          "title": "## Objective 2: Secure Vendor Integrations",
+          "content": "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue stream. We cannot afford another outage when we deploy the next major version next week. 1:** Achieve a 40% incident reduction target for all authentication-related production incidents. 2:** Reduce the average latency spike during peak payment gateway traffic from 400ms to < 100ms. 3:** Eliminate staging mismatch errors by achieving 100% environment parity between staging and production.",
+          "tags": [],
+          "relevanceScore": 3.77,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:31:26.847Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-3ddcec29-4",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the stakeholders paradigm roadmap optimization scalability onboarding roadmap scalability resilience synergy pipeline pipeline onboarding bandwidth stakeholders scalability scalability paradigm roadmap paradigm resilience alignment scalability roadmap alignment stakeholders paradigm roadmap paradigm resilience We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:31:26.847Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-3ddcec29-2",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the deliverables scalability onboarding scalability resilience synergy alignment stakeholders pipeline pipeline roadmap alignment pipeline resilience optimization deliverables stakeholders optimization scalability synergy resilience deliverables paradigm synergy scalability stakeholders stakeholders synergy pipeline optimization We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:31:26.847Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-3ddcec29-5",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the pipeline roadmap resilience scalability resilience stakeholders resilience alignment paradigm optimization bandwidth optimization alignment paradigm pipeline bandwidth alignment onboarding pipeline synergy synergy scalability deliverables alignment stakeholders scalability pipeline alignment paradigm optimization We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:31:26.847Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-3ddcec29-0",
+          "title": "## Executive Summary",
+          "content": "[## Executive Summary] This section covers the synergy onboarding paradigm roadmap alignment bandwidth scalability alignment bandwidth resilience roadmap pipeline onboarding deliverables onboarding bandwidth resilience paradigm paradigm pipeline stakeholders scalability synergy bandwidth pipeline alignment resilience roadmap stakeholders optimization",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:31:26.847Z",
+          "author": "Local Corpus"
+        }
+      ],
+      "constraints": [
+        {
+          "category": "capacity",
+          "severity": "High",
+          "description": "Sprint capacity is at 100%. Available hours: 168."
+        },
+        {
+          "category": "metrics",
+          "severity": "High",
+          "description": "PR review times increased by 61%. Recent avg: 6.8h."
+        },
+        {
+          "category": "delays",
+          "severity": "High",
+          "description": "Detected 2 rollback events recently."
+        }
+      ],
+      "assumptions": [
+        {
+          "assumption": "Component parity will be achieved quickly.",
+          "challenge": "Component rewrite effort is historically underestimated by 50%.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue str..."
+          ],
+          "evidenceId": "chunk-doc-99b14a6b-0"
+        },
+        {
+          "assumption": "Third-party packages are compatible.",
+          "challenge": "Core drag-and-drop libraries do not support the new framework.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Conclusion] This section covers the stakeholders paradigm roadmap optimization scalability onboa..."
+          ],
+          "evidenceId": "chunk-doc-3ddcec29-4"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "fallback-scenario-0",
+          "title": "Component Rewrite Effort Underestimated",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-99b14a6b-0"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "Critical",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Objective 2: Secure Vendor Integrations",
+              "excerpt": "[## Objective 2: Secure Vendor Integrations] The payment gateway is the lifeblood of our revenue stream. We cannot afford another outage when we deplo..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Objective 2: Secure Vendor Integrations' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-1",
+          "title": "Developer Velocity Drops During Transition",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-3ddcec29-4"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Conclusion",
+              "excerpt": "[## Conclusion] This section covers the stakeholders paradigm roadmap optimization scalability onboarding roadmap scalability resilience synergy pipel..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Conclusion' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-2",
+          "title": "Third-Party Package Compatibility Issues",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-3ddcec29-2"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the deliverables scalability onboarding scalability resilience synergy alignment stakeholders pipeline pipe..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        }
+      ],
+      "agentTraces": {
+        "SIGNAL": [
+          "Extracting context via Azure OpenAI...",
+          "Azure OpenAI failed. Fallback triggered: Categorized as 'Frontend Rewrite'."
+        ],
+        "HISTORIAN": [
+          "Initializing retrieval engine via providerFactory abstraction.",
+          "SearchProvider returned top 5 results.",
+          "Rank 1: ## Objective 2: Secure Vendor Integrations (Score: 3.77)",
+          "Rank 2: ## Conclusion (Score: 2.59)",
+          "Rank 3: ## Detailed Analysis (Score: 2.59)",
+          "Rank 4: ## Conclusion (Score: 2.58)",
+          "Rank 5: ## Executive Summary (Score: 2.58)"
+        ],
+        "AUDITOR": [
+          "Loading sprint metrics...",
+          "Loading PR metrics...",
+          "Loading deployment metrics...",
+          "Evaluating capacity thresholds...",
+          "Evaluating review-time trends...",
+          "Evaluating deployment stability...",
+          "Generated 3 operational constraints."
+        ],
+        "CHALLENGER": [
+          "Calling Azure OpenAI Challenger Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific assumptions."
+        ],
+        "SYNTHESIZER": [
+          "Calling Azure OpenAI Synthesizer Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific scenarios."
+        ]
+      },
+      "decisionRecords": [
+        {
+          "scenarioId": "fallback-scenario-0",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Component parity will be achieved quickly.",
+            "Third-party packages are compatible."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:31:29.344Z",
+          "azureWorkItemId": 93,
+          "azureWorkItemTitle": "Component Rewrite Effort Underestimated",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/93"
+        },
+        {
+          "scenarioId": "fallback-scenario-1",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Component parity will be achieved quickly.",
+            "Third-party packages are compatible."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:31:29.344Z",
+          "azureWorkItemId": 94,
+          "azureWorkItemTitle": "Developer Velocity Drops During Transition",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/94"
+        },
+        {
+          "scenarioId": "fallback-scenario-2",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Objective 2: Secure Vendor Integrations",
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Component parity will be achieved quickly.",
+            "Third-party packages are compatible."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:31:29.344Z",
+          "azureWorkItemId": 95,
+          "azureWorkItemTitle": "Third-Party Package Compatibility Issues",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/95"
+        }
+      ],
+      "azureWorkItems": [
+        {
+          "id": 93,
+          "title": "Component Rewrite Effort Underestimated",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/93"
+        },
+        {
+          "id": 94,
+          "title": "Developer Velocity Drops During Transition",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/94"
+        },
+        {
+          "id": 95,
+          "title": "Third-Party Package Compatibility Issues",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/95"
+        }
+      ]
+    }
+  },
+  {
+    "decisionId": "dec-1780818122158",
+    "timestamp": "2026-06-07T07:42:02.158Z",
+    "action": "Proceed",
+    "simulationData": {
+      "context": {
+        "decisionType": "Observability Migration",
+        "deadline": "TBD",
+        "affectedTeams": [
+          "SRE",
+          "DevOps",
+          "Engineering"
+        ],
+        "owner": "System Fallback",
+        "confidence": "Medium"
+      },
+      "retrievedDocuments": [
+        {
+          "id": "chunk-doc-09225018-2",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience optimization roadmap roadmap resilience onboarding optimization scalability paradigm paradigm optimization paradigm scalability optimization resilience onboarding synergy alignment roadmap roadmap deliverables scalability bandwidth resilience pipeline paradigm We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:41:43.591Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-3",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy deliverables bandwidth pipeline roadmap roadmap synergy paradigm paradigm synergy synergy onboarding paradigm pipeline synergy paradigm resilience roadmap roadmap synergy stakeholders We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:41:43.591Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-0",
+          "title": "## Executive Summary",
+          "content": "[## Executive Summary] This section covers the pipeline paradigm paradigm roadmap optimization synergy onboarding onboarding paradigm onboarding deliverables synergy optimization onboarding scalability onboarding paradigm deliverables synergy bandwidth onboarding synergy roadmap bandwidth scalability paradigm scalability roadmap resilience onboarding",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:41:43.591Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-1",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the deliverables deliverables onboarding optimization paradigm stakeholders paradigm paradigm pipeline pipeline stakeholders roadmap optimization optimization onboarding scalability synergy alignment pipeline optimization resilience alignment alignment paradigm bandwidth optimization synergy pipeline resilience resilience",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:41:43.591Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-4",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the resilience roadmap roadmap pipeline pipeline stakeholders stakeholders stakeholders synergy deliverables bandwidth bandwidth stakeholders deliverables stakeholders roadmap onboarding alignment paradigm onboarding onboarding onboarding synergy deliverables deliverables deliverables resilience roadmap deliverables resilience",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:41:43.591Z",
+          "author": "Local Corpus"
+        }
+      ],
+      "constraints": [
+        {
+          "category": "capacity",
+          "severity": "High",
+          "description": "Sprint capacity is at 100%. Available hours: 168."
+        },
+        {
+          "category": "metrics",
+          "severity": "High",
+          "description": "PR review times increased by 61%. Recent avg: 6.8h."
+        },
+        {
+          "category": "delays",
+          "severity": "High",
+          "description": "Detected 2 rollback events recently."
+        }
+      ],
+      "assumptions": [
+        {
+          "assumption": "Historical dashboards can be migrated cleanly.",
+          "challenge": "Query language differences will render 40% of complex dashboards useless.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience o..."
+          ],
+          "evidenceId": "chunk-doc-09225018-2"
+        },
+        {
+          "assumption": "On-call teams understand the new platform.",
+          "challenge": "Lack of muscle memory will increase MTTR during the first 30 days.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deli..."
+          ],
+          "evidenceId": "chunk-doc-09225018-3"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "fallback-scenario-0",
+          "title": "Alert Coverage Gaps During Cutover",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-2"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "Critical",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience optimization roadmap roadmap resilience onboarding ..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-1",
+          "title": "Historical Dashboards Become Unavailable",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-3"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-2",
+          "title": "Metric Name Translation Errors",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-0"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Executive Summary",
+              "excerpt": "[## Executive Summary] This section covers the pipeline paradigm paradigm roadmap optimization synergy onboarding onboarding paradigm onboarding deliv..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Executive Summary' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        }
+      ],
+      "agentTraces": {
+        "SIGNAL": [
+          "Extracting context via Azure OpenAI...",
+          "Azure OpenAI failed. Fallback triggered: Categorized as 'Observability Migration'."
+        ],
+        "HISTORIAN": [
+          "Initializing retrieval engine via providerFactory abstraction.",
+          "SearchProvider returned top 5 results.",
+          "Rank 1: ## Detailed Analysis (Score: 2.58)",
+          "Rank 2: ## Detailed Analysis (Score: 2.58)",
+          "Rank 3: ## Executive Summary (Score: 2.58)",
+          "Rank 4: ## Detailed Analysis (Score: 2.58)",
+          "Rank 5: ## Conclusion (Score: 2.58)"
+        ],
+        "AUDITOR": [
+          "Loading sprint metrics...",
+          "Loading PR metrics...",
+          "Loading deployment metrics...",
+          "Evaluating capacity thresholds...",
+          "Evaluating review-time trends...",
+          "Evaluating deployment stability...",
+          "Generated 3 operational constraints."
+        ],
+        "CHALLENGER": [
+          "Calling Azure OpenAI Challenger Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific assumptions."
+        ],
+        "SYNTHESIZER": [
+          "Calling Azure OpenAI Synthesizer Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific scenarios."
+        ]
+      },
+      "decisionRecords": [
+        {
+          "scenarioId": "fallback-scenario-0",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:41:45.932Z",
+          "azureWorkItemId": 98,
+          "azureWorkItemTitle": "Alert Coverage Gaps During Cutover",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/98"
+        },
+        {
+          "scenarioId": "fallback-scenario-1",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:41:45.932Z",
+          "azureWorkItemId": 99,
+          "azureWorkItemTitle": "Historical Dashboards Become Unavailable",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/99"
+        },
+        {
+          "scenarioId": "fallback-scenario-2",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:41:45.932Z",
+          "azureWorkItemId": 100,
+          "azureWorkItemTitle": "Metric Name Translation Errors",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/100"
+        }
+      ],
+      "azureWorkItems": [
+        {
+          "id": 98,
+          "title": "Alert Coverage Gaps During Cutover",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/98"
+        },
+        {
+          "id": 99,
+          "title": "Historical Dashboards Become Unavailable",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/99"
+        },
+        {
+          "id": 100,
+          "title": "Metric Name Translation Errors",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/100"
+        }
+      ]
+    }
+  },
+  {
+    "decisionId": "dec-1780818176640",
+    "timestamp": "2026-06-07T07:42:56.640Z",
+    "action": "Proceed",
+    "simulationData": {
+      "context": {
+        "decisionType": "Observability Migration",
+        "deadline": "TBD",
+        "affectedTeams": [
+          "SRE",
+          "DevOps",
+          "Engineering"
+        ],
+        "owner": "System Fallback",
+        "confidence": "Medium"
+      },
+      "retrievedDocuments": [
+        {
+          "id": "chunk-doc-09225018-2",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience optimization roadmap roadmap resilience onboarding optimization scalability paradigm paradigm optimization paradigm scalability optimization resilience onboarding synergy alignment roadmap roadmap deliverables scalability bandwidth resilience pipeline paradigm We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:42:51.290Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-3",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy deliverables bandwidth pipeline roadmap roadmap synergy paradigm paradigm synergy synergy onboarding paradigm pipeline synergy paradigm resilience roadmap roadmap synergy stakeholders We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:42:51.290Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-0",
+          "title": "## Executive Summary",
+          "content": "[## Executive Summary] This section covers the pipeline paradigm paradigm roadmap optimization synergy onboarding onboarding paradigm onboarding deliverables synergy optimization onboarding scalability onboarding paradigm deliverables synergy bandwidth onboarding synergy roadmap bandwidth scalability paradigm scalability roadmap resilience onboarding",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:42:51.290Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-1",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the deliverables deliverables onboarding optimization paradigm stakeholders paradigm paradigm pipeline pipeline stakeholders roadmap optimization optimization onboarding scalability synergy alignment pipeline optimization resilience alignment alignment paradigm bandwidth optimization synergy pipeline resilience resilience",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:42:51.290Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-4",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the resilience roadmap roadmap pipeline pipeline stakeholders stakeholders stakeholders synergy deliverables bandwidth bandwidth stakeholders deliverables stakeholders roadmap onboarding alignment paradigm onboarding onboarding onboarding synergy deliverables deliverables deliverables resilience roadmap deliverables resilience",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:42:51.290Z",
+          "author": "Local Corpus"
+        }
+      ],
+      "constraints": [
+        {
+          "category": "capacity",
+          "severity": "High",
+          "description": "Sprint capacity is at 100%. Available hours: 168."
+        },
+        {
+          "category": "metrics",
+          "severity": "High",
+          "description": "PR review times increased by 61%. Recent avg: 6.8h."
+        },
+        {
+          "category": "delays",
+          "severity": "High",
+          "description": "Detected 2 rollback events recently."
+        }
+      ],
+      "assumptions": [
+        {
+          "assumption": "Historical dashboards can be migrated cleanly.",
+          "challenge": "Query language differences will render 40% of complex dashboards useless.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience o..."
+          ],
+          "evidenceId": "chunk-doc-09225018-2"
+        },
+        {
+          "assumption": "On-call teams understand the new platform.",
+          "challenge": "Lack of muscle memory will increase MTTR during the first 30 days.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deli..."
+          ],
+          "evidenceId": "chunk-doc-09225018-3"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "fallback-scenario-0",
+          "title": "Alert Coverage Gaps During Cutover",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-2"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "Critical",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the bandwidth alignment onboarding alignment resilience optimization roadmap roadmap resilience onboarding ..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-1",
+          "title": "Historical Dashboards Become Unavailable",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-3"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-2",
+          "title": "Metric Name Translation Errors",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-0"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Executive Summary",
+              "excerpt": "[## Executive Summary] This section covers the pipeline paradigm paradigm roadmap optimization synergy onboarding onboarding paradigm onboarding deliv..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Executive Summary' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        }
+      ],
+      "agentTraces": {
+        "SIGNAL": [
+          "Extracting context via Azure OpenAI...",
+          "Azure OpenAI failed. Fallback triggered: Categorized as 'Observability Migration'."
+        ],
+        "HISTORIAN": [
+          "Initializing retrieval engine via providerFactory abstraction.",
+          "SearchProvider returned top 5 results.",
+          "Rank 1: ## Detailed Analysis (Score: 2.58)",
+          "Rank 2: ## Detailed Analysis (Score: 2.58)",
+          "Rank 3: ## Executive Summary (Score: 2.58)",
+          "Rank 4: ## Detailed Analysis (Score: 2.58)",
+          "Rank 5: ## Conclusion (Score: 2.58)"
+        ],
+        "AUDITOR": [
+          "Loading sprint metrics...",
+          "Loading PR metrics...",
+          "Loading deployment metrics...",
+          "Evaluating capacity thresholds...",
+          "Evaluating review-time trends...",
+          "Evaluating deployment stability...",
+          "Generated 3 operational constraints."
+        ],
+        "CHALLENGER": [
+          "Calling Azure OpenAI Challenger Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific assumptions."
+        ],
+        "SYNTHESIZER": [
+          "Calling Azure OpenAI Synthesizer Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific scenarios."
+        ]
+      },
+      "decisionRecords": [
+        {
+          "scenarioId": "fallback-scenario-0",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:42:53.340Z",
+          "azureWorkItemId": 101,
+          "azureWorkItemTitle": "Alert Coverage Gaps During Cutover",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/101"
+        },
+        {
+          "scenarioId": "fallback-scenario-1",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:42:53.340Z",
+          "azureWorkItemId": 102,
+          "azureWorkItemTitle": "Historical Dashboards Become Unavailable",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/102"
+        },
+        {
+          "scenarioId": "fallback-scenario-2",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Detailed Analysis",
+            "## Detailed Analysis",
+            "## Executive Summary",
+            "## Detailed Analysis",
+            "## Conclusion"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:42:53.340Z",
+          "azureWorkItemId": 103,
+          "azureWorkItemTitle": "Metric Name Translation Errors",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/103"
+        }
+      ],
+      "azureWorkItems": [
+        {
+          "id": 101,
+          "title": "Alert Coverage Gaps During Cutover",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/101"
+        },
+        {
+          "id": 102,
+          "title": "Historical Dashboards Become Unavailable",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/102"
+        },
+        {
+          "id": 103,
+          "title": "Metric Name Translation Errors",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/103"
+        }
+      ]
+    }
+  },
+  {
+    "decisionId": "dec-1780818345865",
+    "timestamp": "2026-06-07T07:45:45.865Z",
+    "action": "Proceed",
+    "simulationData": {
+      "context": {
+        "decisionType": "Observability Migration",
+        "deadline": "TBD",
+        "affectedTeams": [
+          "SRE",
+          "DevOps",
+          "Engineering"
+        ],
+        "owner": "System Fallback",
+        "confidence": "Medium"
+      },
+      "retrievedDocuments": [
+        {
+          "id": "chunk-doc-09225018-5",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the paradigm bandwidth optimization pipeline bandwidth alignment roadmap deliverables synergy scalability roadmap resilience roadmap pipeline pipeline scalability resilience paradigm paradigm roadmap alignment scalability resilience optimization scalability onboarding alignment pipeline optimization bandwidth",
+          "tags": [],
+          "relevanceScore": 2.61,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:45:07.387Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-3",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy deliverables bandwidth pipeline roadmap roadmap synergy paradigm paradigm synergy synergy onboarding paradigm pipeline synergy paradigm resilience roadmap roadmap synergy stakeholders We encountered an issue with the vendor dependency which caused a minor outage. The legacy systems had to be maintained.",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:45:07.387Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-4",
+          "title": "## Conclusion",
+          "content": "[## Conclusion] This section covers the resilience roadmap roadmap pipeline pipeline stakeholders stakeholders stakeholders synergy deliverables bandwidth bandwidth stakeholders deliverables stakeholders roadmap onboarding alignment paradigm onboarding onboarding onboarding synergy deliverables deliverables deliverables resilience roadmap deliverables resilience",
+          "tags": [],
+          "relevanceScore": 2.59,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:45:07.387Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-0",
+          "title": "## Executive Summary",
+          "content": "[## Executive Summary] This section covers the pipeline paradigm paradigm roadmap optimization synergy onboarding onboarding paradigm onboarding deliverables synergy optimization onboarding scalability onboarding paradigm deliverables synergy bandwidth onboarding synergy roadmap bandwidth scalability paradigm scalability roadmap resilience onboarding",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:45:07.387Z",
+          "author": "Local Corpus"
+        },
+        {
+          "id": "chunk-doc-09225018-1",
+          "title": "## Detailed Analysis",
+          "content": "[## Detailed Analysis] This section covers the deliverables deliverables onboarding optimization paradigm stakeholders paradigm paradigm pipeline pipeline stakeholders roadmap optimization optimization onboarding scalability synergy alignment pipeline optimization resilience alignment alignment paradigm bandwidth optimization synergy pipeline resilience resilience",
+          "tags": [],
+          "relevanceScore": 2.58,
+          "type": "indexed_chunk",
+          "date": "2026-06-07T07:45:07.387Z",
+          "author": "Local Corpus"
+        }
+      ],
+      "constraints": [
+        {
+          "category": "capacity",
+          "severity": "High",
+          "description": "Sprint capacity is at 100%. Available hours: 168."
+        },
+        {
+          "category": "metrics",
+          "severity": "High",
+          "description": "PR review times increased by 61%. Recent avg: 6.8h."
+        },
+        {
+          "category": "delays",
+          "severity": "High",
+          "description": "Detected 2 rollback events recently."
+        }
+      ],
+      "assumptions": [
+        {
+          "assumption": "Historical dashboards can be migrated cleanly.",
+          "challenge": "Query language differences will render 40% of complex dashboards useless.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Conclusion] This section covers the paradigm bandwidth optimization pipeline bandwidth alignment..."
+          ],
+          "evidenceId": "chunk-doc-09225018-5"
+        },
+        {
+          "assumption": "On-call teams understand the new platform.",
+          "challenge": "Lack of muscle memory will increase MTTR during the first 30 days.",
+          "vulnerability": "System relies heavily on untested integration paths.",
+          "contradictingEvidence": [
+            "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deli..."
+          ],
+          "evidenceId": "chunk-doc-09225018-3"
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "fallback-scenario-0",
+          "title": "Alert Coverage Gaps During Cutover",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-5"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "Critical",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Conclusion",
+              "excerpt": "[## Conclusion] This section covers the paradigm bandwidth optimization pipeline bandwidth alignment roadmap deliverables synergy scalability roadmap ..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Conclusion' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-1",
+          "title": "Historical Dashboards Become Unavailable",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-3"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Detailed Analysis",
+              "excerpt": "[## Detailed Analysis] This section covers the alignment synergy roadmap alignment stakeholders deliverables deliverables stakeholders synergy synergy..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Detailed Analysis' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        },
+        {
+          "id": "fallback-scenario-2",
+          "title": "Metric Name Translation Errors",
+          "causalChain": [
+            "Initiative deployed to production",
+            "Edge case triggers domain-specific failure",
+            "Cascading impact on downstream dependencies"
+          ],
+          "supportingEvidenceIds": [
+            "chunk-doc-09225018-4"
+          ],
+          "impact": "Significant operational disruption and potential SLA breach.",
+          "severity": "High",
+          "mitigationRecommendations": [
+            "Execute staged rollout.",
+            "Establish automated rollback triggers."
+          ],
+          "reasoning": "Generated deterministically based on keyword category matching to ensure relevant risk surfacing.",
+          "evidence": [
+            {
+              "source": "## Conclusion",
+              "excerpt": "[## Conclusion] This section covers the resilience roadmap roadmap pipeline pipeline stakeholders stakeholders stakeholders synergy deliverables bandw..."
+            }
+          ],
+          "whyGenerated": [
+            "Retrieved document '## Conclusion' explicitly matched current deployment context.",
+            "Sprint capacity is currently exhausted.",
+            "Detected multiple rollback events in recent history."
+          ]
+        }
+      ],
+      "agentTraces": {
+        "SIGNAL": [
+          "Extracting context via Azure OpenAI...",
+          "Azure OpenAI failed. Fallback triggered: Categorized as 'Observability Migration'."
+        ],
+        "HISTORIAN": [
+          "Initializing retrieval engine via providerFactory abstraction.",
+          "SearchProvider returned top 5 results.",
+          "Rank 1: ## Conclusion (Score: 2.61)",
+          "Rank 2: ## Detailed Analysis (Score: 2.59)",
+          "Rank 3: ## Conclusion (Score: 2.59)",
+          "Rank 4: ## Executive Summary (Score: 2.58)",
+          "Rank 5: ## Detailed Analysis (Score: 2.58)"
+        ],
+        "AUDITOR": [
+          "Loading sprint metrics...",
+          "Loading PR metrics...",
+          "Loading deployment metrics...",
+          "Evaluating capacity thresholds...",
+          "Evaluating review-time trends...",
+          "Evaluating deployment stability...",
+          "Generated 3 operational constraints."
+        ],
+        "CHALLENGER": [
+          "Calling Azure OpenAI Challenger Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific assumptions."
+        ],
+        "SYNTHESIZER": [
+          "Calling Azure OpenAI Synthesizer Agent...",
+          "Azure OpenAI failed. Fallback triggered: Generating domain-specific scenarios."
+        ]
+      },
+      "decisionRecords": [
+        {
+          "scenarioId": "fallback-scenario-0",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary",
+            "## Detailed Analysis"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:45:09.020Z",
+          "azureWorkItemId": 112,
+          "azureWorkItemTitle": "Alert Coverage Gaps During Cutover",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/112"
+        },
+        {
+          "scenarioId": "fallback-scenario-1",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary",
+            "## Detailed Analysis"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:45:09.020Z",
+          "azureWorkItemId": 113,
+          "azureWorkItemTitle": "Historical Dashboards Become Unavailable",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/113"
+        },
+        {
+          "scenarioId": "fallback-scenario-2",
+          "generatedBy": [
+            "Historian",
+            "Auditor",
+            "Challenger",
+            "Synthesizer"
+          ],
+          "evidence": [
+            "## Conclusion",
+            "## Detailed Analysis",
+            "## Conclusion",
+            "## Executive Summary",
+            "## Detailed Analysis"
+          ],
+          "constraints": [
+            "Sprint capacity is at 100%. Available hours: 168.",
+            "PR review times increased by 61%. Recent avg: 6.8h.",
+            "Detected 2 rollback events recently."
+          ],
+          "assumptions": [
+            "Historical dashboards can be migrated cleanly.",
+            "On-call teams understand the new platform."
+          ],
+          "confidence": "Medium",
+          "timestamp": "2026-06-07T07:45:09.020Z",
+          "azureWorkItemId": 114,
+          "azureWorkItemTitle": "Metric Name Translation Errors",
+          "azureWorkItemUrl": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/114"
+        }
+      ],
+      "azureWorkItems": [
+        {
+          "id": 112,
+          "title": "Alert Coverage Gaps During Cutover",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/112"
+        },
+        {
+          "id": 113,
+          "title": "Historical Dashboards Become Unavailable",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/113"
+        },
+        {
+          "id": 114,
+          "title": "Metric Name Translation Errors",
+          "url": "https://dev.azure.com/foresight-buildai/58930acf-3091-444b-8137-fd7d145ca030/_workitems/edit/114"
+        }
+      ]
+    }
   }
 ]

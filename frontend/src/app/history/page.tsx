@@ -36,7 +36,8 @@ export default function HistoryDashboard() {
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/decision-history")
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    fetch(`${API_URL}/api/decision-history`)
       .then((res) => res.json())
       .then((data) => {
         setRecords(data || []);

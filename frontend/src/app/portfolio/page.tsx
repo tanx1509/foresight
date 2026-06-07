@@ -10,7 +10,8 @@ export default function DecisionInbox() {
   const [activeTab, setActiveTab] = useState("All Views");
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/decision-history")
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(data => setDecisions(data))
       .catch(err => console.error(err));

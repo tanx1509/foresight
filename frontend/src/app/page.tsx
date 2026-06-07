@@ -15,7 +15,8 @@ export default function Home() {
   const [azureSyncs, setAzureSyncs] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/decision-history")
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(d => {
         if (Array.isArray(d)) {
@@ -31,7 +32,8 @@ export default function Home() {
     setSimulationState("running");
     
     try {
-      const res = await fetch("http://localhost:3001/api/simulate", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const res = await fetch(`${API_URL}/api/simulate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt })
@@ -55,7 +57,8 @@ export default function Home() {
 
   const handleDecision = async (action: string) => {
     try {
-      const res = await fetch("http://localhost:3001/api/decisions", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const res = await fetch(`${API_URL}/api/decisions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action, simulationData })

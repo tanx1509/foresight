@@ -11,7 +11,8 @@ export default function ExecutionPlanPage() {
   const [loading, setLoading] = useState(true);
 
   const fetchRecord = () => {
-    fetch("http://localhost:3001/api/decision-history")
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(data => {
         const found = data.find((d: any) => d.decisionId === params.id);
@@ -32,7 +33,8 @@ export default function ExecutionPlanPage() {
 
   const updateState = async (newState: string, outcomePayload?: any) => {
     try {
-      await fetch(`http://localhost:3001/api/decisions/${params.id}/status`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      await fetch(`${API_URL}/api/decisions/${params.id}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newState, outcome: outcomePayload })
