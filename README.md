@@ -250,8 +250,9 @@ FORESIGHT was built over a hackathon weekend, but it was architected for Fortune
 
 | Name | Role | Core Contributions |
 |------|------|--------------------|
-| **[Your Name/Handle]** | Systems Architect & Product Lead | Orchestration architecture, Next.js UI development, Multi-Agent DAG design. |
-| **[Teammate Name]** | AI & Data Engineer | RAG pipeline, semantic chunking, prompt engineering, Azure integration. |
+| **Tanishq Sethi** | Systems Architect & Product Lead | Orchestration architecture, Next.js App Router development, and Multi-Agent DAG design. |
+| **[Teammate 2 Name]** | Lead AI & Data Engineer | RAG pipeline implementation, semantic chunking algorithms, prompt engineering, and Azure DevOps integration. |
+| **[Teammate 3 Name]** | Frontend Architect & UX Engineer | Developed the Microsoft Fluent-styled UI, interactive simulation visualizations, and client-side state management. |
 
 ---
 
