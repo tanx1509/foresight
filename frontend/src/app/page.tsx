@@ -135,10 +135,10 @@ export default function Home() {
                     <label className="block text-[12px] text-fluent-text-muted mb-1.5 font-medium">Quick Start Examples</label>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "Should we rewrite the frontend in Vue.js?",
-                        "Should we migrate our CRM to Salesforce?",
-                        "Should we replace Okta this quarter?",
-                        "Can we deploy the payment gateway next week?"
+                        "The engineering organization is considering rewriting a React-based customer platform into Vue.js over the next 12 months. The platform supports more than 1 million monthly active users and includes over 400 reusable components. Analyze technical debt reduction benefits against migration risks and historical engineering failures.",
+                        "Our sales organization currently uses HubSpot across 450 account executives. Leadership is proposing a migration to Salesforce within the next two quarters to improve enterprise reporting and forecasting accuracy. The migration would require transferring custom workflows, attribution models, and revenue dashboards. Historical migration incidents and operational risks should be analyzed before approval.",
+                        "The company is considering replacing Okta with Microsoft Entra ID during Q3. Approximately 8,000 employees rely on the identity platform for daily authentication. Previous security incidents, integration dependencies, compliance requirements, and rollout risks should be evaluated before proceeding.",
+                        "The payments team plans to migrate all customer transactions from Stripe Gateway A to Gateway B next week. The migration includes tokenized payment data, recurring billing subscriptions, and webhook integrations. Analyze historical failures, operational constraints, and potential business risks before approval."
                       ].map(p => (
                         <button 
                           key={p}

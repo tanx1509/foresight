@@ -27,18 +27,24 @@ export const runSignalAgent = async (prompt: string): Promise<AgentResponse<Deci
 
   const lowerPrompt = prompt.toLowerCase();
   const domains: any[] = [];
-  if (lowerPrompt.match(/pricing|tier|smb|enterprise|billing/)) {
+  if (lowerPrompt.match(/pricing|pricing tier|smb pricing|enterprise pricing/)) {
     domains.push({ 
-      type: lowerPrompt.includes("enterprise") ? "Enterprise Pricing Launch" : lowerPrompt.match(/smb|small business/) ? "SMB Pricing Launch" : "Pricing Model Launch", 
+      type: lowerPrompt.includes("enterprise pricing") ? "Enterprise Pricing Launch" : lowerPrompt.match(/smb pricing/) ? "SMB Pricing Launch" : "Pricing Model Launch", 
       owner: { name: "Pricing Director", role: "Revenue Operations, CFO Office" }, 
       teams: ["Product", "Finance", "Go-To-Market"] 
     });
   }
-  if (lowerPrompt.match(/revenue|monetization|commercial/)) {
-    domains.push({ type: "Revenue Operations Change", owner: { name: "RevOps Lead", role: "Finance" }, teams: ["Finance", "Sales"] });
+  if (lowerPrompt.match(/revenue|monetization|commercial|salesforce|hubspot/)) {
+    domains.push({ type: "CRM Migration", owner: { name: "RevOps Lead", role: "Finance" }, teams: ["Finance", "Sales"] });
+  }
+  if (lowerPrompt.match(/payment|stripe|gateway|billing/)) {
+    domains.push({ type: "Payment Gateway Migration", owner: { name: "Payments Lead", role: "Finance" }, teams: ["Engineering", "Finance"] });
   }
   if (lowerPrompt.match(/market expansion|europe|asia|latam|germany|international|healthcare market|acquire|competitor/)) {
     domains.push({ type: "Market Expansion", owner: { name: "VP International", role: "Legal" }, teams: ["Legal", "Product", "Go-To-Market"] });
+  }
+  if (lowerPrompt.match(/okta|auth0|azure ad|identity|login|entra/)) {
+    domains.push({ type: "Identity Migration", owner: { name: "IAM Lead", role: "Security Director" }, teams: ["Security", "Engineering"] });
   }
   if (lowerPrompt.match(/compliance|soc2|gdpr|hipaa|security policy/)) {
     domains.push({ type: "Compliance Initiative", owner: { name: "Compliance Lead", role: "Security Director" }, teams: ["Security", "Legal", "Engineering"] });
@@ -46,11 +52,8 @@ export const runSignalAgent = async (prompt: string): Promise<AgentResponse<Deci
   if (lowerPrompt.match(/datadog|grafana|splunk|new relic|observability|monitoring/)) {
     domains.push({ type: "Observability Migration", owner: { name: "VP Engineering", role: "SRE Lead" }, teams: ["Engineering", "SRE"] });
   }
-  if (lowerPrompt.match(/okta|auth0|azure ad|identity|login/)) {
-    domains.push({ type: "Identity Migration", owner: { name: "IAM Lead", role: "Security Director" }, teams: ["Security", "Engineering"] });
-  }
   if (lowerPrompt.match(/react|vue|angular|frontend|architecture/)) {
-    domains.push({ type: "Engineering Architecture Change", owner: { name: "Frontend Lead", role: "Engineering Director" }, teams: ["Engineering"] });
+    domains.push({ type: "Frontend Rewrite", owner: { name: "Frontend Lead", role: "Engineering Director" }, teams: ["Engineering"] });
   }
 
   let secondaryDomain = undefined;
