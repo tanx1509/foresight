@@ -55,7 +55,28 @@ export function buildFailureMapCard(simulation: any, decisionId: string) {
           { title: "Scenarios", value: `${scenarios.length}` }
         ]
       },
-      ...scenarioItems,
+      ...(scenarios.length > 0 ? scenarioItems : [
+        {
+          type: "Container",
+          style: "good",
+          bleed: true,
+          spacing: "Medium",
+          items: [
+            {
+              type: "TextBlock",
+              text: "✅ No Critical Risks Detected",
+              size: "Medium",
+              weight: "Bolder",
+              color: "Good"
+            },
+            {
+              type: "TextBlock",
+              text: "Based on the retrieved historical evidence and current operational constraints, the proposed decision carries minimal risk. You may proceed safely.",
+              wrap: true
+            }
+          ]
+        }
+      ]),
       {
         type: "ActionSet",
         actions: [
@@ -103,7 +124,41 @@ function buildScenarioDetail(scenario: any, dr: any) {
           body: [
             {
               type: "TextBlock",
-              text: "**Causal Chain**"
+              text: "**WHY THIS SCENARIO EXISTS**",
+              color: "Attention",
+              weight: "Bolder"
+            },
+            {
+              type: "TextBlock",
+              text: scenario.whyGenerated ? `• ${scenario.whyGenerated.join("\n• ")}` : "No reasoning available.",
+              wrap: true
+            },
+            {
+              type: "TextBlock",
+              text: "**EVIDENCE**",
+              color: "Accent",
+              weight: "Bolder"
+            },
+            ...(scenario.evidence && scenario.evidence.length > 0 ? scenario.evidence.map((ev: any) => ({
+              type: "TextBlock",
+              text: `*Source:* **${ev.source}**\n\n*Excerpt:* "${ev.excerpt}"`,
+              wrap: true,
+              isSubtle: true
+            })) : [{ type: "TextBlock", text: "No direct evidence provided.", wrap: true }]),
+            {
+              type: "TextBlock",
+              text: "**REASONING CHAIN**",
+              weight: "Bolder"
+            },
+            {
+              type: "TextBlock",
+              text: scenario.reasoning || "N/A",
+              wrap: true
+            },
+            {
+              type: "TextBlock",
+              text: "**Causal Chain**",
+              weight: "Bolder"
             },
             {
               type: "TextBlock",
@@ -112,7 +167,8 @@ function buildScenarioDetail(scenario: any, dr: any) {
             },
             {
               type: "TextBlock",
-              text: "**Impact**"
+              text: "**Impact**",
+              weight: "Bolder"
             },
             {
               type: "TextBlock",
@@ -121,38 +177,12 @@ function buildScenarioDetail(scenario: any, dr: any) {
             },
             {
               type: "TextBlock",
-              text: "**Mitigation**"
+              text: "**Mitigation**",
+              weight: "Bolder"
             },
             {
               type: "TextBlock",
               text: scenario.mitigationRecommendations?.join(", ") || "N/A",
-              wrap: true
-            },
-            {
-              type: "TextBlock",
-              text: "**Evidence Sources**"
-            },
-            {
-              type: "TextBlock",
-              text: dr?.evidence?.join(", ") || "None",
-              wrap: true
-            },
-            {
-              type: "TextBlock",
-              text: "**Constraints**"
-            },
-            {
-              type: "TextBlock",
-              text: dr?.constraints?.join("\n") || "None",
-              wrap: true
-            },
-            {
-              type: "TextBlock",
-              text: "**Assumptions**"
-            },
-            {
-              type: "TextBlock",
-              text: dr?.assumptions?.join("\n") || "None",
               wrap: true
             }
           ]

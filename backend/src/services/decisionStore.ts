@@ -27,3 +27,14 @@ export function saveDecisionRecords(records: any[]) {
     )
   );
 }
+
+export function updateDecisionRecord(decisionId: string, updates: any) {
+  const existing = loadDecisionRecords();
+  const index = existing.findIndex((r: any) => r.decisionId === decisionId);
+  if (index !== -1) {
+    existing[index] = { ...existing[index], ...updates };
+    fs.writeFileSync(FILE_PATH, JSON.stringify(existing, null, 2));
+    return existing[index];
+  }
+  return null;
+}
