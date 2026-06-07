@@ -229,8 +229,7 @@ npm run dev
 > *The resulting causal chain of failure, explicitly citing the historical internal document that proves the risk.*
 
 ### 4. Decision Audit & Azure Traceability
-![Decision Audit & Azure Traceability](assets/4_History_Page.png)
-> *Bridging strategy to execution: Automatic generation of a risk mitigation ticket directly into the Azure DevOps backlog, preserving the cryptographic decision audit trail.*
+![History](assets/4_History.png)
 
 ---
 
