@@ -18,7 +18,10 @@ import {
 } from "./agents";
 import { ActionDecisionRecord, FailureSimulation } from "@foresight/shared";
 import fs from "fs";
+import os from "os";
 import path from "path";
+
+const DATA_ROOT = process.env.DATA_DIR || (process.env.VERCEL ? path.join(os.tmpdir(), "foresight") : process.cwd());
 
 // Bootstrap local storage directories
 const BOOTSTRAP_DIRS = [
@@ -30,7 +33,7 @@ const BOOTSTRAP_DIRS = [
   "data/operational"
 ];
 BOOTSTRAP_DIRS.forEach(dir => {
-  const fullPath = path.resolve(__dirname, '../../', dir);
+  const fullPath = path.resolve(DATA_ROOT, dir);
   if (!fs.existsSync(fullPath)) {
     fs.mkdirSync(fullPath, { recursive: true });
     console.log(`[BOOTSTRAP] Created directory: ${dir}`);
@@ -39,6 +42,7 @@ BOOTSTRAP_DIRS.forEach(dir => {
 
 import { ingestCorpus } from "./ingestion/corpusIngestion";
 import { getSearchProvider } from "./services/providerFactory";
+import { getIntegrationStatuses, testIntegration, IntegrationId } from "./services/integrations";
 
 const app = express();
 app.use(cors());
@@ -69,10 +73,6 @@ app.get("/api/debug/search", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-const PORT = process.env.PORT || 3001;
-
-const DB_FILE = path.join(process.cwd(), "data", "decisionRecords.json");
 
 app.post("/api/simulate", async (req, res) => {
   try {
@@ -366,9 +366,81 @@ app.get("/api/decision-history", (req, res) => {
   res.json(loadDecisionRecords());
 });
 
-app.listen(PORT, () => {
-  console.log(`FORESIGHT Backend Phase 7B running on http://localhost:${PORT}`);
-  console.log(`Runtime Configuration check:`);
-  console.log(`> SEARCH_PROVIDER: ${process.env.SEARCH_PROVIDER || 'mock'}`);
-  console.log(`> OPERATIONAL_PROVIDER: ${process.env.OPERATIONAL_PROVIDER || 'mock'}`);
+app.post("/api/copilot/simulate", async (req, res) => {
+  try {
+    const prompt = req.body.prompt || req.body.message || req.body.text;
+    if (!prompt) return res.status(400).json({ error: "Missing prompt, message, or text" });
+
+    const decisionId = `copilot-${Date.now()}`;
+    initializeActivity(decisionId, ["SIGNAL", "HISTORIAN", "AUDITOR", "CHALLENGER", "SYNTHESIZER"]);
+    const result = await runSimulationWorkflow(prompt, decisionId);
+
+    res.json({
+      decisionId,
+      summary: {
+        decisionType: result.context?.decisionType,
+        confidence: result.confidenceBreakdown?.overall,
+        topRisk: result.scenarios?.[0]?.title,
+        recommendedPath: result.options?.[0]?.title
+      },
+      simulation: result
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Copilot simulation failed" });
+  }
 });
+
+app.post("/api/sharechat/message", async (req, res) => {
+  try {
+    const prompt = req.body.prompt || req.body.message || req.body.text;
+    if (!prompt) return res.status(400).json({ error: "Missing prompt, message, or text" });
+
+    const decisionId = `sharechat-${Date.now()}`;
+    initializeActivity(decisionId, ["SIGNAL", "HISTORIAN", "AUDITOR", "CHALLENGER", "SYNTHESIZER"]);
+    const result = await runSimulationWorkflow(prompt, decisionId);
+
+    res.json({
+      decisionId,
+      message: `FORESIGHT completed ${result.context?.decisionType || "decision"} simulation. Top risk: ${result.scenarios?.[0]?.title || "review required"}.`,
+      simulation: result
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "ShareChat simulation failed" });
+  }
+});
+
+app.get("/api/integrations", (_req, res) => {
+  res.json({
+    appUrl: process.env.PUBLIC_APP_URL || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    apiUrl: process.env.PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
+    integrations: getIntegrationStatuses()
+  });
+});
+
+app.post("/api/integrations/:id/test", async (req, res) => {
+  try {
+    const id = req.params.id as IntegrationId;
+    if (!["azure", "teams", "copilot", "sharechat"].includes(id)) {
+      return res.status(404).json({ error: "Unknown integration" });
+    }
+
+    const result = await testIntegration(id);
+    res.json(result);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || "Integration test failed" });
+  }
+});
+
+export default app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`FORESIGHT Backend Phase 7B running on http://localhost:${PORT}`);
+    console.log(`Runtime Configuration check:`);
+    console.log(`> SEARCH_PROVIDER: ${process.env.SEARCH_PROVIDER || 'mock'}`);
+    console.log(`> OPERATIONAL_PROVIDER: ${process.env.OPERATIONAL_PROVIDER || 'mock'}`);
+  });
+}

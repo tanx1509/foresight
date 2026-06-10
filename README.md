@@ -192,14 +192,14 @@ npm install
 ```
 
 ### 2. Environment Variables
-Create `.env` files in both the root and `backend/` directories.
+Copy the example environment files, then fill in the links and keys for the integrations you want to enable.
 ```bash
-# backend/.env
-OPENAI_API_KEY="sk-your-key-here"
-AZURE_DEVOPS_ORG="your-org"
-AZURE_DEVOPS_PROJECT="your-project"
-AZURE_DEVOPS_PAT="your-pat"
+copy .env.example .env
+copy backend\.env.example backend\.env
+copy frontend\.env.local.example frontend\.env.local
 ```
+
+FORESIGHT runs with mock/local data when secrets are missing. Add Azure, Teams, Copilot, and ShareChat values in `backend/.env` to enable live integrations. See [`docs/INTEGRATIONS.md`](./docs/INTEGRATIONS.md) or the in-app `/integrations` guide.
 
 ### 3. Build & Run
 Build the shared types, then boot both the backend orchestration server and the Next.js frontend concurrently.

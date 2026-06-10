@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FolderKanban, CheckCircle2, Clock, AlertTriangle, Activity, ChevronRight, BarChart3, Search, ShieldAlert } from "lucide-react";
+import { getApiUrl } from "@/lib/api";
 
 export default function DecisionInbox() {
   const router = useRouter();
@@ -10,7 +11,7 @@ export default function DecisionInbox() {
   const [activeTab, setActiveTab] = useState("All Views");
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const API_URL = getApiUrl();
     fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(data => setDecisions(data))

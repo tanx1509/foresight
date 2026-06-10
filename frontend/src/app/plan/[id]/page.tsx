@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { CheckCircle2, Clock, ShieldAlert, Users, Network, Activity, ChevronRight, FileText, CheckSquare, PlayCircle, Loader2, ArrowLeft } from "lucide-react";
+import { getApiUrl } from "@/lib/api";
 
 export default function ExecutionPlanPage() {
   const params = useParams();
@@ -11,7 +12,7 @@ export default function ExecutionPlanPage() {
   const [loading, setLoading] = useState(true);
 
   const fetchRecord = () => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const API_URL = getApiUrl();
     fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(data => {
@@ -33,7 +34,7 @@ export default function ExecutionPlanPage() {
 
   const updateState = async (newState: string, outcomePayload?: any) => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const API_URL = getApiUrl();
       await fetch(`${API_URL}/api/decisions/${params.id}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

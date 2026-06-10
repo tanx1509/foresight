@@ -1,39 +1,76 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, Play, ChevronRight, History, Activity, Database } from "lucide-react";
+import { Search, Play, ChevronRight, History, PlugZap, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import AgentTimeline from "@/components/AgentTimeline";
 import SimulationDashboard from "@/components/SimulationDashboard";
 import ForesightLogo from "@/components/ForesightLogo";
 import { FailureSimulation } from "@foresight/shared";
 import { useRouter } from "next/navigation";
+import { getApiUrl } from "@/lib/api";
+
+type IntegrationStatus = {
+  id: "azure" | "teams" | "copilot" | "sharechat";
+  name: string;
+  configured: boolean;
+  status: "ready" | "missing_config" | "error";
+  description: string;
+  requiredEnv: string[];
+  setupUrl: string;
+  details?: string;
+};
 
 export default function Home() {
   const [simulationState, setSimulationState] = useState<"idle" | "running" | "completed">("idle");
   const [simulationData, setSimulationData] = useState<FailureSimulation | null>(null);
   const [prompt, setPrompt] = useState("");
   const [recentSims, setRecentSims] = useState<any[]>([]);
-  const [azureSyncs, setAzureSyncs] = useState(0);
+  const [integrations, setIntegrations] = useState<IntegrationStatus[]>([]);
+  const [testingIntegration, setTestingIntegration] = useState<string | null>(null);
+  const [integrationMessage, setIntegrationMessage] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const API_URL = getApiUrl();
     fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
       .then(d => {
         if (Array.isArray(d)) {
           setRecentSims(d.slice(0, 4));
-          setAzureSyncs(d.filter(r => r.azureWorkItemId).length);
         }
       })
       .catch(err => console.error(err));
+
+    fetch(`${API_URL}/api/integrations`)
+      .then(r => r.json())
+      .then(d => {
+        if (Array.isArray(d.integrations)) setIntegrations(d.integrations);
+      })
+      .catch(err => console.error(err));
   }, []);
+
+  const testIntegration = async (id: IntegrationStatus["id"]) => {
+    const API_URL = getApiUrl();
+    setTestingIntegration(id);
+    setIntegrationMessage((prev) => ({ ...prev, [id]: "" }));
+
+    try {
+      const res = await fetch(`${API_URL}/api/integrations/${id}/test`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Test failed");
+      setIntegrationMessage((prev) => ({ ...prev, [id]: data.details || "Test completed." }));
+    } catch (err: any) {
+      setIntegrationMessage((prev) => ({ ...prev, [id]: err.message || "Test failed." }));
+    } finally {
+      setTestingIntegration(null);
+    }
+  };
 
   const startSimulation = async () => {
     if (!prompt.trim()) return;
     setSimulationState("running");
     
     try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const API_URL = getApiUrl();
       const res = await fetch(`${API_URL}/api/simulate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,7 +95,7 @@ export default function Home() {
 
   const handleDecision = async (action: string) => {
     try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const API_URL = getApiUrl();
       const res = await fetch(`${API_URL}/api/decisions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -177,7 +214,72 @@ export default function Home() {
 
           {/* Operational Context - Only visible when idle */}
           {simulationState === "idle" && (
-            <div className="mt-8">
+            <div className="mt-8 space-y-4">
+              <div className="bg-fluent-surface border border-fluent-border rounded-sm p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <PlugZap className="w-4 h-4 text-fluent-text-muted" />
+                    <h3 className="text-[13px] font-semibold text-fluent-text uppercase tracking-wider">Integrations</h3>
+                  </div>
+                  <a href="/integrations" className="text-[12px] text-fluent-brand hover:underline">Guide</a>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {integrations.length === 0 ? (
+                    <div className="border border-dashed border-fluent-border p-3 text-[13px] text-fluent-text-muted">
+                      Loading integration status...
+                    </div>
+                  ) : integrations.map((integration) => (
+                    <div key={integration.id} className="border border-fluent-border-subtle rounded-sm bg-fluent-bg p-3 min-h-[132px] flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              {integration.configured ? (
+                                <CheckCircle2 className="w-3.5 h-3.5 text-fluent-success" />
+                              ) : (
+                                <AlertCircle className="w-3.5 h-3.5 text-fluent-warning" />
+                              )}
+                              <span className="text-[13px] font-semibold text-fluent-text">{integration.name}</span>
+                            </div>
+                            <p className="text-[11px] text-fluent-text-muted mt-1 leading-4">{integration.description}</p>
+                          </div>
+                          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-sm shrink-0 ${
+                            integration.configured ? "bg-fluent-success-bg text-fluent-success" : "bg-fluent-warning-bg text-fluent-warning"
+                          }`}>
+                            {integration.configured ? "Ready" : "Env needed"}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-fluent-text-muted mt-2 break-words">
+                          {integration.requiredEnv.join(", ")}
+                        </p>
+                      </div>
+                      <div className="mt-3 flex items-center justify-between gap-2">
+                        <a
+                          href={integration.setupUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[11px] text-fluent-brand hover:underline"
+                        >
+                          Open setup
+                        </a>
+                        <button
+                          onClick={() => testIntegration(integration.id)}
+                          disabled={!integration.configured || testingIntegration === integration.id}
+                          className="h-7 px-2 border border-fluent-border bg-fluent-surface hover:bg-fluent-surface-hover disabled:opacity-50 disabled:cursor-not-allowed text-[11px] font-semibold rounded-sm flex items-center gap-1"
+                        >
+                          {testingIntegration === integration.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <PlugZap className="w-3 h-3" />}
+                          Test
+                        </button>
+                      </div>
+                      {integrationMessage[integration.id] && (
+                        <p className="text-[11px] text-fluent-text-muted mt-2">{integrationMessage[integration.id]}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="bg-fluent-surface border border-fluent-border rounded-sm p-4">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">

@@ -10,6 +10,7 @@ import {
 import { FailureSimulation } from "@foresight/shared";
 import { startAgent, completeAgent } from "../teams/activityStore";
 import { saveSimulation } from "../teams/simulationStore";
+import { publishSimulationToIntegrations } from "./integrations";
 
 export async function runSimulationWorkflow(prompt: string, decisionId: string) {
   startAgent(decisionId, "SIGNAL");
@@ -345,6 +346,9 @@ export async function runSimulationWorkflow(prompt: string, decisionId: string) 
   };
 
   saveSimulation(decisionId, finalResult);
+  publishSimulationToIntegrations(finalResult, decisionId).catch((err) => {
+    console.error("Integration publish failed:", err.message);
+  });
 
   return finalResult;
 }
