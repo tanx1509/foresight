@@ -217,20 +217,19 @@ npm run dev
 *(Click to expand the screenshots demonstrating the platform workflow)*
 
 ### 1. The Executive Dashboard
-> **`[ INSERT SCREENSHOT: 1_Home_Idle.png ]`**
+![The Executive Dashboard](assets/1_Home_Idle.png)
 > *The centralized hub for submitting architectural RFCs and viewing recent decision investigations. Built on Microsoft Fluent Design principles.*
 
 ### 2. Multi-Agent Processing
-> **`[ INSERT SCREENSHOT: 2_Loading_State.png ]`**
+![Multi-Agent Processing](assets/2_Loading_State.png)
 > *Real-time telemetry showing the Historian and Challenger agents interrogating the organizational memory.*
 
 ### 3. The Failure Simulation Reveal
-> **`[ INSERT SCREENSHOT: 3_Simulation_Dashboard.png ]`**
+![The Failure Simulation Reveal](assets/3_Simulation_Dashboard.png)
 > *The resulting causal chain of failure, explicitly citing the historical internal document that proves the risk.*
 
-### 4. Actionable Mitigation
-> **`[ INSERT SCREENSHOT: 4_Azure_Integration.png ]`**
-> *Bridging strategy to execution: One-click generation of a risk mitigation ticket directly into the Azure DevOps backlog.*
+### 4. Decision Audit & Azure Traceability
+![History](assets/4_History.png)
 
 ---
 
@@ -250,9 +249,9 @@ FORESIGHT was built over a hackathon weekend, but it was architected for Fortune
 
 | Name | Role | Core Contributions |
 |------|------|--------------------|
-| **Tanishq Sethi([www.linkedin.com/in/tanx1509])** | Systems Architect & Product Lead | Orchestration architecture, Next.js App Router development, and Multi-Agent DAG design. |
-| **Vansh Maheshwari([www.linkedin.com/in/vansh-maheshwari2004])** | Lead AI & Data Engineer | RAG pipeline implementation, semantic chunking algorithms, prompt engineering, and Azure DevOps integration. |
-| **Aditya Kumar Jha([www.linkedin.com/in/aditya-jha-81182a224])** | Frontend Architect & UX Engineer | Developed the Microsoft Fluent-styled UI, interactive simulation visualizations, and client-side state management. |
+| **(Tanishq Sethi)[www.linkedin.com/in/tanx1509]** | Systems Architect & Product Lead | Orchestration architecture, Next.js App Router development, and Multi-Agent DAG design. |
+| **(Vansh Maheshwari)[www.linkedin.com/in/vansh-maheshwari2004]** | Lead AI & Data Engineer | RAG pipeline implementation, semantic chunking algorithms, prompt engineering, and Azure DevOps integration. |
+| **(Aditya Kumar Jha)[www.linkedin.com/in/aditya-jha-81182a224]** | Frontend Architect & UX Engineer | Developed the Microsoft Fluent-styled UI, interactive simulation visualizations, and client-side state management. |
 
 ---
 

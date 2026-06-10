@@ -190,6 +190,7 @@ export default function Home() {
                   
                   <div className="pt-2">
                     <button 
+                      type="submit"
                       onClick={startSimulation}
                       disabled={!prompt.trim()}
                       className="w-full bg-fluent-brand hover:bg-fluent-brand-hover hover:brightness-110 disabled:bg-fluent-border disabled:cursor-not-allowed text-white font-semibold py-2 px-3 rounded-sm shadow-sm hover:shadow-md flex justify-center items-center gap-1.5 transition-all duration-200 cursor-pointer text-[13px]"
