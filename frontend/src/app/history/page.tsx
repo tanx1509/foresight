@@ -14,6 +14,7 @@ import {
   Layers,
   Users
 } from "lucide-react";
+import { getApiUrl } from "@/lib/api";
 
 interface DecisionRecord {
   scenarioId: string;
@@ -36,7 +37,7 @@ export default function HistoryDashboard() {
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const API_URL = getApiUrl();
     fetch(`${API_URL}/api/decision-history`)
       .then((res) => res.json())
       .then((data) => {

@@ -152,9 +152,10 @@ export async function createWorkItem(
     "Content-Type": "application/json-patch+json"
   };
 
+  const workItemType = encodeURIComponent(process.env.AZURE_DEVOPS_WORK_ITEM_TYPE || "Issue");
   const url =
     `${orgUrl}/${encodeURIComponent(project)}` +
-    `/_apis/wit/workitems/%24Issue?api-version=7.1`;
+    `/_apis/wit/workitems/%24${workItemType}?api-version=7.1`;
 
   const body = [
     {
