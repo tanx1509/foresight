@@ -37,6 +37,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+button, a, input, textarea, select {
+  letter-spacing: 0;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-fluent-brand);
+  outline-offset: 2px;
+}
+
 /* Authentic Microsoft Teams Shadow / Elevation 4 */
 .fluent-shadow {
   box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
@@ -44,4 +57,12 @@ body {
 
 .fluent-shadow-flyout {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.14), 0 0px 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.shadow-elevation-4 {
+  box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+}
+
+.shadow-elevation-8 {
+  box-shadow: 0 3.2px 7.2px rgba(0, 0, 0, 0.13), 0 0.6px 1.8px rgba(0, 0, 0, 0.11);
 }

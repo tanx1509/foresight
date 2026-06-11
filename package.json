@@ -2,6 +2,10 @@
   "name": "foresight",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20 <23",
+    "npm": ">=10"
+  },
   "workspaces": [
     "frontend",
     "backend",
@@ -9,9 +13,11 @@
     "mock-data"
   ],
   "scripts": {
-    "dev": "npm run dev --workspaces",
-    "build": "npm run build --workspaces",
-    "start": "npm run start --workspaces"
+    "dev": "node scripts/dev.js",
+    "dev:backend": "npm run dev --workspace @foresight/backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run start --workspace @foresight/backend --if-present"
   },
   "devDependencies": {
     "@types/pdfkit": "^0.17.6",

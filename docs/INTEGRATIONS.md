@@ -14,6 +14,13 @@ Run the full app:
 npm run dev
 ```
 
+If you want to run servers separately:
+
+```bash
+npm run dev:backend
+npm run dev:frontend
+```
+
 Open:
 
 - Frontend: http://localhost:3000

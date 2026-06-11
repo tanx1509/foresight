@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { CheckCircle2, Clock, ShieldAlert, Users, Network, Activity, ChevronRight, FileText, CheckSquare, PlayCircle, Loader2, ArrowLeft } from "lucide-react";
 import { getApiUrl } from "@/lib/api";
+import Link from "next/link";
+import ForesightLogo from "@/components/ForesightLogo";
 
 export default function ExecutionPlanPage() {
   const params = useParams();
@@ -69,6 +71,9 @@ export default function ExecutionPlanPage() {
           <button onClick={() => router.push('/')} className="w-8 h-8 flex items-center justify-center hover:bg-fluent-surface-hover rounded-sm text-fluent-text transition-all duration-200 cursor-pointer hover:shadow-sm">
             <ArrowLeft className="w-4 h-4" />
           </button>
+          <Link href="/" className="text-fluent-brand hover:text-fluent-brand-hover" aria-label="Go to FORESIGHT home">
+            <ForesightLogo size={24} color="currentColor" />
+          </Link>
           <div>
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-[20px] font-semibold text-fluent-text">Execution Plan: {record.simulationData.context.decisionType}</h1>

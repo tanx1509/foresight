@@ -15,6 +15,8 @@ import {
   Users
 } from "lucide-react";
 import { getApiUrl } from "@/lib/api";
+import Link from "next/link";
+import ForesightLogo from "@/components/ForesightLogo";
 
 interface DecisionRecord {
   scenarioId: string;
@@ -41,7 +43,10 @@ export default function HistoryDashboard() {
     fetch(`${API_URL}/api/decision-history`)
       .then((res) => res.json())
       .then((data) => {
-        setRecords(data || []);
+        const sorted = Array.isArray(data)
+          ? [...data].sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime())
+          : [];
+        setRecords(sorted);
         setLoading(false);
       })
       .catch((err) => {
@@ -114,9 +119,11 @@ export default function HistoryDashboard() {
         {/* Header - Enterprise Native */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-fluent-border pb-4">
           <div>
-            <h1 className="text-[24px] font-semibold text-fluent-text tracking-tight">
-              Decision Intelligence
-            </h1>
+            <Link href="/" className="inline-flex items-center gap-2 text-fluent-brand hover:text-fluent-brand-hover mb-2">
+              <ForesightLogo size={24} color="currentColor" />
+              <span className="text-[13px] font-semibold tracking-wider">FORESIGHT</span>
+            </Link>
+            <h1 className="text-[24px] font-semibold text-fluent-text tracking-tight">Decision Intelligence</h1>
             <p className="text-fluent-text-muted mt-1 text-[13px]">
               Organizational memory of AI-driven risk simulations, assumptions, and DevOps synchronization.
             </p>

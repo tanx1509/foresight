@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, Play, ChevronRight, History, PlugZap, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Search, Play, ChevronRight, History, PlugZap, CheckCircle2, AlertCircle, Loader2, LogIn } from "lucide-react";
 import AgentTimeline from "@/components/AgentTimeline";
 import SimulationDashboard from "@/components/SimulationDashboard";
 import ForesightLogo from "@/components/ForesightLogo";
@@ -35,7 +36,11 @@ export default function Home() {
       .then(r => r.json())
       .then(d => {
         if (Array.isArray(d)) {
-          setRecentSims(d.slice(0, 4));
+          setRecentSims(
+            [...d]
+              .sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime())
+              .slice(0, 4)
+          );
         }
       })
       .catch(err => console.error(err));
@@ -106,10 +111,7 @@ export default function Home() {
       if (action === "Proceed" || action === "Request Review") {
         router.push(`/plan/${record.decisionId}`);
       } else {
-        alert(`Decision recorded: ${action}`);
-        setSimulationState("idle");
-        setSimulationData(null);
-        setPrompt("");
+        router.push(`/decision-delayed/${record.decisionId}`);
       }
     } catch (err) {
       console.error(err);
@@ -122,10 +124,10 @@ export default function Home() {
       {/* Top Header */}
       <header className="h-12 bg-fluent-surface border-b border-fluent-border flex items-center justify-between px-6 shrink-0">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-fluent-brand">
-            <ForesightLogo size={20} color="currentColor" />
+          <Link href="/" className="flex items-center gap-2 text-fluent-brand hover:text-fluent-brand-hover focus:outline-none focus:ring-1 focus:ring-fluent-brand rounded-sm px-1 py-0.5" aria-label="Go to FORESIGHT home">
+            <ForesightLogo size={22} color="currentColor" />
             <span className="font-semibold tracking-wider text-[14px]">FORESIGHT</span>
-          </div>
+          </Link>
           <div className="h-4 w-px bg-fluent-border mx-2"></div>
           <div className="flex items-center gap-1.5 text-[13px]">
             <h1 className="font-semibold text-fluent-text">Engineering Operations</h1>
@@ -133,9 +135,10 @@ export default function Home() {
             <span className="text-fluent-text-muted">Decision Context</span>
           </div>
         </div>
-        <div className="w-6 h-6 rounded-full bg-fluent-brand text-white flex items-center justify-center font-semibold text-[11px]">
-          AD
-        </div>
+        <Link href="/login" className="h-8 px-2.5 border border-fluent-border bg-fluent-surface hover:bg-fluent-surface-hover rounded-sm text-[12px] font-semibold flex items-center gap-1.5">
+          <LogIn className="w-3.5 h-3.5" />
+          Sign in
+        </Link>
       </header>
 
       <main className="flex-1 p-4 flex gap-4 items-start overflow-hidden">
@@ -172,10 +175,11 @@ export default function Home() {
                     <label className="block text-[12px] text-fluent-text-muted mb-1.5 font-medium">Quick Start Examples</label>
                     <div className="flex flex-wrap gap-2">
                       {[
-                        "The engineering organization is considering rewriting a React-based customer platform into Vue.js over the next 12 months. The platform supports more than 1 million monthly active users and includes over 400 reusable components. Analyze technical debt reduction benefits against migration risks and historical engineering failures.",
-                        "Our sales organization currently uses HubSpot across 450 account executives. Leadership is proposing a migration to Salesforce within the next two quarters to improve enterprise reporting and forecasting accuracy. The migration would require transferring custom workflows, attribution models, and revenue dashboards. Historical migration incidents and operational risks should be analyzed before approval.",
-                        "The company is considering replacing Okta with Microsoft Entra ID during Q3. Approximately 8,000 employees rely on the identity platform for daily authentication. Previous security incidents, integration dependencies, compliance requirements, and rollout risks should be evaluated before proceeding.",
-                        "The payments team plans to migrate all customer transactions from Stripe Gateway A to Gateway B next week. The migration includes tokenized payment data, recurring billing subscriptions, and webhook integrations. Analyze historical failures, operational constraints, and potential business risks before approval."
+                        "Rewrite the React customer portal in Vue next year.",
+                        "Move RevOps from HubSpot to Salesforce in Q3.",
+                        "Replace Okta with Microsoft Entra ID for 8,000 employees.",
+                        "Migrate payment processing to a new gateway next week.",
+                        "Launch a Copilot assistant for support workflows."
                       ].map(p => (
                         <button 
                           key={p}

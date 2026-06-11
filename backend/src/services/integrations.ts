@@ -27,7 +27,10 @@ const appBaseUrl = () => process.env.PUBLIC_APP_URL || process.env.NEXT_PUBLIC_A
 const apiBaseUrl = () => process.env.PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 function hasAll(keys: string[]) {
-  return keys.every((key) => Boolean(process.env[key]));
+  return keys.every((key) => {
+    const value = process.env[key]?.trim();
+    return Boolean(value) && !value.includes("YOUR_") && !value.includes("YOUR-") && !value.includes("example.com");
+  });
 }
 
 function status(
