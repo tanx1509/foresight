@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FolderKanban, CheckCircle2, Clock, AlertTriangle, Activity, ChevronRight, BarChart3, Search, ShieldAlert } from "lucide-react";
 import { getApiUrl } from "@/lib/api";
+import ForesightLogo from "@/components/ForesightLogo";
 
 export default function DecisionInbox() {
   const router = useRouter();
@@ -14,7 +15,12 @@ export default function DecisionInbox() {
     const API_URL = getApiUrl();
     fetch(`${API_URL}/api/decision-history`)
       .then(r => r.json())
-      .then(data => setDecisions(data))
+      .then(data => {
+        const sorted = Array.isArray(data)
+          ? [...data].sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime())
+          : [];
+        setDecisions(sorted);
+      })
       .catch(err => console.error(err));
   }, []);
 
@@ -27,9 +33,9 @@ export default function DecisionInbox() {
       {/* Top Header */}
       <header className="h-12 bg-fluent-surface border-b border-fluent-border flex items-center justify-between px-4 shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-fluent-brand text-white rounded-[4px] flex items-center justify-center font-bold text-[11px]">
-            F
-          </div>
+          <button onClick={() => router.push('/')} className="text-fluent-brand hover:text-fluent-brand-hover" aria-label="Go to FORESIGHT home">
+            <ForesightLogo size={24} color="currentColor" />
+          </button>
           <div className="flex items-center gap-1.5 text-[13px]">
             <span className="font-semibold text-fluent-text">Engineering Operations</span>
             <ChevronRight className="w-3.5 h-3.5 text-fluent-text-muted" />

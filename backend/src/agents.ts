@@ -46,6 +46,15 @@ export const runSignalAgent = async (prompt: string): Promise<AgentResponse<Deci
   if (lowerPrompt.match(/okta|auth0|azure ad|identity|login|entra/)) {
     domains.push({ type: "Identity Migration", owner: { name: "IAM Lead", role: "Security Director" }, teams: ["Security", "Engineering"] });
   }
+  if (lowerPrompt.match(/node\.?js|npm|package manager|workspace|runtime|build error|dev server/)) {
+    domains.push({ type: "Infrastructure Migration", owner: { name: "Platform Lead", role: "Developer Experience" }, teams: ["Platform", "Engineering"] });
+  }
+  if (lowerPrompt.match(/copilot|ai assistant|chatbot|llm agent/)) {
+    domains.push({ type: "Product AI Launch", owner: { name: "AI Product Lead", role: "Product" }, teams: ["Product", "Security", "Engineering"] });
+  }
+  if (lowerPrompt.match(/teams|sharechat|community channel|notification|webhook/)) {
+    domains.push({ type: "Collaboration Integration", owner: { name: "Engineering Operations Lead", role: "Operations" }, teams: ["Engineering Operations", "Product"] });
+  }
   if (lowerPrompt.match(/compliance|soc2|gdpr|hipaa|security policy/)) {
     domains.push({ type: "Compliance Initiative", owner: { name: "Compliance Lead", role: "Security Director" }, teams: ["Security", "Legal", "Engineering"] });
   }

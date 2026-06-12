@@ -384,6 +384,63 @@ const strategyDocs: Document[] = [
   }
 ];
 
+const platformOpsDocs: Document[] = [
+  {
+    id: "doc-ops-001",
+    title: "Postmortem: Node.js Runtime Upgrade Broke Production Build",
+    type: "postmortem",
+    date: "2025-06-03",
+    author: "Platform Engineering",
+    content: "The upgrade from Node.js 18 to Node.js 22 broke the production build because one workspace package relied on transitive CommonJS behavior that changed under the newer runtime. The failure was missed locally because developers had different Node versions and stale node_modules folders. The deployment was blocked for two days while lockfiles were regenerated and engines were pinned. Future Node.js upgrades must include a checked-in .nvmrc, explicit package.json engines, CI validation on a clean install, and a dry-run build for every workspace.",
+    tags: ["Node.js", "Runtime", "Build", "Workspace"]
+  },
+  {
+    id: "doc-ops-002",
+    title: "Incident Report: NPM Workspace Dev Script Deadlock",
+    type: "incident_report",
+    date: "2025-05-18",
+    author: "Developer Experience",
+    content: "A monorepo dev command attempted to run watch scripts in every workspace. The shared package watch process never exited, so backend and frontend dev servers were not started consistently. Engineers assumed the app was broken when the issue was actually script orchestration. The fix was to split backend and frontend commands clearly and avoid running long-lived watch processes across all workspaces unless a process manager is present.",
+    tags: ["Node.js", "NPM", "Workspace", "Developer Experience"]
+  },
+  {
+    id: "doc-ops-003",
+    title: "Launch Review: Login Page and Entra ID Pilot",
+    type: "launch_review",
+    date: "2025-07-14",
+    author: "Identity Platform",
+    content: "The first login page pilot used Microsoft Entra ID but failed accessibility and redirect testing. Deep links returned users to the dashboard instead of their requested decision page, and keyboard focus was lost after MFA. The rollout succeeded only after we added route preservation, visible focus states, fallback local demo mode, and clear tenant configuration. Any login launch must validate redirect URI settings, MFA behavior, session expiry, and emergency local access.",
+    tags: ["Login", "Entra ID", "Authentication", "Accessibility"]
+  },
+  {
+    id: "doc-ops-004",
+    title: "Retrospective: Microsoft Teams Approval Workflow Noise",
+    type: "retrospective",
+    date: "2025-04-08",
+    author: "Engineering Operations",
+    content: "Posting every risk simulation into Microsoft Teams created alert fatigue. Important approval decisions were buried under verbose cards and repeated test messages. The team restored usefulness by limiting notifications to decision summaries, linking back to the full dashboard, and using dedicated channels for high-severity simulations. Teams integrations must be concise, actionable, and routed to the correct audience.",
+    tags: ["Teams", "Notifications", "Approval", "Workflow"]
+  },
+  {
+    id: "doc-ops-005",
+    title: "Security Review: Copilot Studio Custom Connector",
+    type: "retrospective",
+    date: "2025-08-21",
+    author: "AI Governance",
+    content: "A Copilot Studio custom connector exposed too much internal simulation detail to broad tenant users. The security review required response minimization, bearer token validation, tenant scoping, and audit logging before production approval. Copilot integrations should return executive summaries by default and require explicit authorization before exposing evidence excerpts or internal incident content.",
+    tags: ["Copilot", "AI", "Connector", "Governance"]
+  },
+  {
+    id: "doc-ops-006",
+    title: "Incident Report: ShareChat Launch Message Mismatch",
+    type: "incident_report",
+    date: "2025-09-02",
+    author: "Community Operations",
+    content: "A product update posted to a ShareChat community channel used internal engineering terminology and confused external users. Support volume increased because the summary lacked localized context, owner information, and a clear next step. Future ShareChat or community-channel integrations must tailor summaries for the audience, include a link to public-safe details, and avoid publishing internal risk language without review.",
+    tags: ["ShareChat", "Community", "Localization", "Communications"]
+  }
+];
+
 export const allDocuments: Document[] = [
   ...ssoDocs,
   ...paymentDocs,
@@ -392,7 +449,8 @@ export const allDocuments: Document[] = [
   ...dataDocs,
   ...productDocs,
   ...securityDocs,
-  ...strategyDocs
+  ...strategyDocs,
+  ...platformOpsDocs
 ];
 
 export const mockOperationalConstraints: OperationalConstraint[] = [

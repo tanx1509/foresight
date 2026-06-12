@@ -210,6 +210,8 @@ npm run dev
 - **Frontend**: `http://localhost:3000`
 - **Backend API**: `http://localhost:3001`
 
+If your terminal needs separate processes, use `npm run dev:backend` and `npm run dev:frontend` in two terminals.
+
 ---
 
 ## The Interface
